@@ -1,39 +1,45 @@
 <template>
   <div class="draw">
-    <h1>Sorteio de Estilos</h1>
-    <p>Data de entrega: <strong>{{ store.currentDraw.deadline }}</strong></p>
+    <header class="view-header">
+      <h2>📅 Sorteio Atual</h2>
+      <p>Data Limite: <strong>{{ store.currentDraw.deadline }}</strong></p>
+    </header>
     
     <!-- FASE 1: DEFINIÇÃO DO POOL -->
     <div v-if="store.currentDraw.phase === 'POOL_DEFINITION'" class="phase-container">
-      <div class="status-bar">
+      <div class="status-bar amber-gradient">
         <h2>Fase 1: Definição do Pool ({{ store.currentDraw.poolSelections.length }}/{{ store.PARTICIPANTS_COUNT }})</h2>
-        <p>Cada participante deve escolher um estilo único para o sorteio.</p>
+        <p>Cada confrade deve escolher um estilo BJCP único para compor o sorteio.</p>
       </div>
 
       <div class="selection-container">
-        <div class="available-styles">
-          <h2>Estilos BJCP</h2>
-          <ul>
-            <li v-for="style in store.availableStyles" :key="style.id">
-              <span>{{ style.id }} - {{ style.name }}</span>
-              <button @click="confirmPoolSelection(style.id)" class="btn-select">
+        <div class="available-styles card-panel">
+          <h3>Estilos Disponíveis</h3>
+          <ul class="style-list">
+            <li v-for="style in store.availableStyles" :key="style.id" class="style-item">
+              <div class="style-text">
+                <span class="style-id">{{ style.id }}</span>
+                <span class="style-name">{{ style.name }}</span>
+              </div>
+              <button @click="confirmPoolSelection(style.id)" class="btn-primary">
                 Escolher para o Pool
               </button>
             </li>
           </ul>
         </div>
         
-        <div class="my-status">
-          <h2>Estilos já no Pool</h2>
-          <ul>
-            <li v-for="selection in store.currentDraw.poolSelections" :key="selection.userId">
-              <strong>{{ selection.userId }}:</strong> {{ getStyleName(selection.styleId) }}
+        <div class="my-status card-panel">
+          <h3>Estilos no Pool</h3>
+          <ul class="pool-summary">
+            <li v-for="selection in store.currentDraw.poolSelections" :key="selection.userId" class="summary-item">
+              <strong>{{ selection.userId }}</strong>
+              <span>{{ getStyleName(selection.styleId) }}</span>
             </li>
           </ul>
           
           <div v-if="store.currentDraw.poolSelections.length < store.PARTICIPANTS_COUNT" class="debug-box">
-            <p><small>Apenas para teste (Debug):</small></p>
-            <button @click="mockCompletePool" style="font-size: 0.8rem;">Simular Sorteio Completo</button>
+            <p><small>Ambiente de Teste:</small></p>
+            <button @click="mockCompletePool" class="btn-secondary">Simular Sorteio Completo</button>
           </div>
         </div>
       </div>
@@ -43,8 +49,8 @@
     <div v-else class="phase-container">
       
       <!-- DASHBOARD GERAL -->
-      <section class="global-dashboard">
-        <h2>📊 Painel Geral de Entregas</h2>
+      <section class="global-dashboard card-panel">
+        <h2 class="section-title">📊 Painel Geral de Entregas</h2>
         <div class="dashboard-grid">
           <div v-for="userId in store.participants" :key="userId" class="user-row">
             <div class="user-info">
@@ -53,11 +59,11 @@
             <div class="user-beers">
               <div v-for="i in 3" :key="i" class="beer-slot">
                 <template v-if="getUserSelection(userId)?.styles[i-1]">
-                  <span class="beer-name" :title="getUserSelection(userId)?.styles[i-1].styleId">
+                  <span class="beer-name-small" :title="getUserSelection(userId)?.styles[i-1].styleId">
                     {{ getStyleName(getUserSelection(userId)!.styles[i-1].styleId) }}
                   </span>
-                  <span v-if="getUserSelection(userId)?.styles[i-1].delivered" class="badge delivered">Entregue</span>
-                  <span v-else class="badge pending">Pendente</span>
+                  <span v-if="getUserSelection(userId)?.styles[i-1].delivered" class="badge-mini delivered">Entregue</span>
+                  <span v-else class="badge-mini pending">Pendente</span>
                 </template>
                 <template v-else>
                   <span class="empty-slot">Vazio</span>
@@ -68,13 +74,10 @@
         </div>
       </section>
 
-      <hr class="separator">
-
-      <!-- GERENCIAMENTO INDIVIDUAL -->
-      <section class="personal-area">
-        <div class="status-bar green">
+      <div class="personal-area">
+        <div class="status-bar green-gradient">
           <h2>🍺 Minhas Escolhas e Entregas ({{ userFinalSelection?.styles.length || 0 }}/3)</h2>
-          <p>Escolha seus estilos e confirme a entrega conforme for produzindo.</p>
+          <p>Selecione seus estilos e registre cada entrega individualmente.</p>
         </div>
 
         <div class="personal-grid">
@@ -82,51 +85,51 @@
           <div class="my-deliveries">
             <h3>Minha Produção</h3>
             <div v-if="!userFinalSelection || userFinalSelection.styles.length === 0" class="empty-msg">
-              Você ainda não selecionou nenhum estilo.
+              Nenhum estilo selecionado para produção.
             </div>
             <div class="delivery-list">
-              <div v-for="item in userFinalSelection?.styles" :key="item.styleId" class="delivery-card" :class="{ 'delivered': item.delivered }">
+              <div v-for="item in userFinalSelection?.styles" :key="item.styleId" class="delivery-card" :class="{ 'card-delivered': item.delivered }">
                 <div class="card-header">
                   <h4>{{ getStyleName(item.styleId) }}</h4>
-                  <button v-if="!item.delivered" @click="handleRemoveStyle(item.styleId)" class="btn-text-red">Remover</button>
+                  <button v-if="!item.delivered" @click="handleRemoveStyle(item.styleId)" class="btn-text-red">Desistir</button>
                 </div>
                 
                 <div v-if="!item.delivered" class="delivery-form">
                   <textarea v-model="deliveryObservations[item.styleId]" placeholder="Onde foi entregue?"></textarea>
-                  <button @click="handleConfirmDelivery(item.styleId)" class="btn-delivery">
+                  <button @click="handleConfirmDelivery(item.styleId)" class="btn-confirm-delivery">
                     Confirmar Entrega
                   </button>
                 </div>
                 
                 <div v-else class="delivery-info">
-                  <p class="status-tag">Entregue ✅</p>
-                  <p v-if="item.observation"><strong>Obs:</strong> {{ item.observation }}</p>
+                  <p class="delivery-status">Entregue ✅</p>
+                  <p v-if="item.observation" class="delivery-obs"><strong>Local:</strong> {{ item.observation }}</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Pool para Escolher -->
-          <div v-if="(userFinalSelection?.styles.length || 0) < 3" class="pool-selection">
-            <h3>Adicionar Estilo</h3>
+          <div v-if="(userFinalSelection?.styles.length || 0) < 3" class="pool-selection card-panel">
+            <h3>Adicionar Estilo ao Plano</h3>
             <div class="pool-list">
               <div v-for="style in store.stylePool" :key="style.id" class="pool-item">
                 <div class="style-details">
-                  <span>{{ style.id }} - {{ style.name }}</span>
-                  <small>Sorteado por: {{ getParticipantByStyle(style.id) }}</small>
+                  <span class="pool-style-name">{{ style.name }}</span>
+                  <small>Sorteado por: <strong>{{ getParticipantByStyle(style.id) }}</strong></small>
                 </div>
                 <button 
                   @click="handleAddStyle(style.id)" 
                   :disabled="isStyleAlreadyPicked(style.id)"
-                  class="btn-add"
+                  class="btn-primary-small"
                 >
-                  {{ isStyleAlreadyPicked(style.id) ? 'Já Escolhido' : 'Escolher' }}
+                  {{ isStyleAlreadyPicked(style.id) ? 'Já está na sua lista' : 'Produzir este' }}
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </div>
 </template>
@@ -200,124 +203,133 @@ const mockCompletePool = () => {
 
 <style scoped>
 .draw {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
+
+.view-header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.view-header h2 {
+  margin: 0;
+  color: var(--stout);
+}
+
+.card-panel {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
 .status-bar {
-  background: #f4f4f4;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-radius: 12px;
   margin-bottom: 2rem;
+  color: white;
 }
-.status-bar.green {
-  background: #e8f5e9;
-  border-left: 5px solid #4caf50;
+
+.amber-gradient {
+  background: linear-gradient(135deg, var(--amber) 0%, #b36b00 100%);
 }
+
+.green-gradient {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.status-bar h2 { color: white; margin-bottom: 0.5rem; }
+.status-bar p { margin: 0; opacity: 0.9; }
+
 .selection-container {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   gap: 2rem;
 }
-ul {
+
+.style-list {
   list-style: none;
   padding: 0;
+  max-height: 500px;
+  overflow-y: auto;
 }
-li {
+
+.style-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
-  border-bottom: 1px solid #eee;
-}
-.btn-select, .btn-add {
-  padding: 0.5rem 1rem;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.btn-add:disabled {
-  background-color: #ccc;
-}
-.btn-confirm {
-  margin-top: 1rem;
-  padding: 1rem 2rem;
-  background-color: #42b883;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  font-weight: bold;
-}
-.available-styles {
-  max-height: 500px;
-  overflow-y: auto;
-  border: 1px solid #eee;
   padding: 1rem;
-  border-radius: 8px;
-}
-.debug-box {
-  margin-top: 2rem; 
-  padding: 1rem; 
-  border: 1px dashed #ccc;
+  border-bottom: 1px solid var(--bg);
 }
 
-/* Dashboard Styles */
-.global-dashboard {
-  margin-bottom: 3rem;
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+.style-text { display: flex; align-items: center; gap: 1rem; }
+.style-id { font-weight: 900; color: var(--amber); width: 30px; }
+
+.btn-primary {
+  background: var(--stout);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
 }
+
+.btn-primary:hover { background: var(--amber); }
+
+.pool-summary { list-style: none; padding: 0; }
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+/* Dashboard */
+.global-dashboard { margin-bottom: 2rem; }
+.section-title { margin-bottom: 1.5rem; font-size: 1.4rem; }
+
 .dashboard-grid {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1rem;
 }
+
 .user-row {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 120px 1fr;
+  padding: 0.8rem;
+  background: var(--bg);
+  border-radius: 8px;
   align-items: center;
-  padding: 0.5rem;
-  border-bottom: 1px solid #f0f0f0;
 }
+
 .user-beers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
+
 .beer-slot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background: #f9f9f9;
   padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
 }
-.empty-slot {
-  color: #ccc;
-  font-style: italic;
-}
-.badge {
-  font-size: 0.7rem;
-  padding: 2px 6px;
-  border-radius: 10px;
-  text-transform: uppercase;
-}
-.badge.delivered { background: #4caf50; color: white; }
-.badge.pending { background: #ff9800; color: white; }
 
-.separator {
-  margin: 3rem 0;
-  border: 0;
-  border-top: 1px solid #eee;
+.badge-mini {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: white;
 }
+.delivered { background: #27ae60; }
+.pending { background: #f39c12; }
 
 /* Personal Area */
 .personal-grid {
@@ -325,62 +337,62 @@ li {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
-.delivery-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+
 .delivery-card {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 8px;
-}
-.delivery-card.delivered { border-color: #4caf50; background: #f1f8e9; }
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.delivery-form textarea {
-  width: 100%;
-  height: 60px;
-  margin-bottom: 0.5rem;
-}
-.btn-delivery {
-  width: 100%;
-  padding: 0.5rem;
-  background: #2c3e50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.btn-text-red {
-  background: none;
-  border: none;
-  color: #e74c3c;
-  cursor: pointer;
-  font-size: 0.8rem;
+  background: white;
+  border: 2px solid var(--border);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
 }
 
-.pool-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.card-delivered { border-color: #2ecc71; background: #f0fff4; }
+
+.delivery-status {
+  font-weight: 800;
+  color: #27ae60;
+  margin-bottom: 0.5rem;
 }
+
+.delivery-form textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem;
+  margin: 0.8rem 0;
+  font-family: inherit;
+}
+
+.btn-confirm-delivery {
+  width: 100%;
+  background: var(--stout);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
 .pool-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 6px;
+  padding: 1rem;
+  background: var(--bg);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
-.style-details {
-  display: flex;
-  flex-direction: column;
+
+.pool-style-name { font-weight: 700; display: block; }
+
+.btn-primary-small {
+  background: var(--amber);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
 }
-.style-details small { color: #888; }
-.empty-msg { color: #888; font-style: italic; }
+
+.btn-primary-small:disabled { background: var(--border); }
 </style>

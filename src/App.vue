@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import bingoLogo from './assets/bingo.png'
 </script>
 
 <template>
-  <header>
-    <nav>
+  <header class="logo-container">
+    <img :src="bingoLogo" alt="Bingo Logo" class="logo-img" />
+    <h1 class="brand-name">Confraria</h1>
+    <nav class="main-nav">
       <RouterLink to="/">Início</RouterLink>
       <RouterLink to="/draw">Sorteio</RouterLink>
       <RouterLink to="/history">Histórico</RouterLink>
@@ -12,45 +15,32 @@ import { RouterLink, RouterView } from 'vue-router'
     </nav>
   </header>
 
-  <main>
+  <main class="content-wrapper">
     <RouterView />
   </main>
 </template>
 
 <style>
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  line-height: 1.5;
-  margin-bottom: 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 1rem;
-  text-align: center;
-  margin-top: 2rem;
+.main-nav {
+  margin-left: auto;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-nav a {
-  text-decoration: none;
-  color: #2c3e50;
-  font-weight: bold;
+.main-nav a {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--stout);
 }
 
-nav a.router-link-exact-active {
-  color: #42b883;
+.main-nav a.router-link-exact-active {
+  background-color: var(--amber);
+  color: white;
 }
 
-main {
-  padding-top: 2rem;
+.content-wrapper {
+  flex-grow: 1;
+  padding: 2rem;
 }
 </style>
