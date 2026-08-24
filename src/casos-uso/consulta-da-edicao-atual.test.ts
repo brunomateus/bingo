@@ -48,7 +48,8 @@ describe('ConsultaDaEdicaoAtual', () => {
           entregas: [{ styleId: '21A', observation: '', deliveredAt: '2026-09-01T00:00:00.000Z' }]
         }
       ],
-      nomePorMembro: { 'ana@exemplo.com': 'Ana' }
+      nomePorMembro: { 'ana@exemplo.com': 'Ana' },
+      membrosAtivos: ['ana@exemplo.com']
     })
   })
 
@@ -64,9 +65,8 @@ describe('ConsultaDaEdicaoAtual', () => {
       new FakeRepositorioMembros([ANA, { ...ANA, id: 'bia@exemplo.com', nome: 'Bia', status: 'inativo' }]),
       new FakeRepositorioEntregas()
     )
-    expect((await consultaComInativo.carregar()).nomePorMembro).toEqual({
-      'ana@exemplo.com': 'Ana',
-      'bia@exemplo.com': 'Bia'
-    })
+    const carregada = await consultaComInativo.carregar()
+    expect(carregada.nomePorMembro).toEqual({ 'ana@exemplo.com': 'Ana', 'bia@exemplo.com': 'Bia' })
+    expect(carregada.membrosAtivos).toEqual(['ana@exemplo.com'])
   })
 })

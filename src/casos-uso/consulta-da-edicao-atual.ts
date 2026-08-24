@@ -13,6 +13,8 @@ export interface EdicaoEmCurso {
   entregasPorMembro: EntregasDoMembro[]
   /** Nome de cada participante — o Pool guarda só ids (SPEC.md §7). */
   nomePorMembro: Record<MembroId, string>
+  /** Membros ativos agora: quem entrará na próxima Edição, e o teto da meta. */
+  membrosAtivos: MembroId[]
 }
 
 /**
@@ -41,11 +43,13 @@ export class ConsultaDaEdicaoAtual {
 
   async carregar(): Promise<EdicaoEmCurso> {
     const edicao = await this.edicoes.buscarAberta()
+    const membros = await this.membros.listar()
     return {
       edicao,
       reivindicacoes: edicao ? await this.pool.listar(edicao.id) : [],
       entregasPorMembro: edicao ? await this.entregas.listarPorEdicao(edicao.id) : [],
-      nomePorMembro: await this.nomes()
+      nomePorMembro: Object.fromEntries(membros.map((membro) => [membro.id, membro.nome])),
+      membrosAtivos: membros.filter((membro) => membro.status === 'ativo').map((membro) => membro.id)
     }
   }
 
@@ -59,8 +63,4 @@ export class ConsultaDaEdicaoAtual {
     return await this.entregas.listarPorEdicao(edicaoId)
   }
 
-  private async nomes(): Promise<Record<MembroId, string>> {
-    const membros = await this.membros.listar()
-    return Object.fromEntries(membros.map((membro) => [membro.id, membro.nome]))
-  }
 }

@@ -107,7 +107,7 @@ describe('prazoVencido', () => {
 
 describe('validarAbertura', () => {
   const agora = new Date(2026, 7, 23)
-  const validos = { prazo: '2026-09-30', metaEntregas: 3, participantes: ['ana@x.com'] }
+  const validos = { prazo: '2026-09-30', metaEntregas: 1, participantes: ['ana@x.com'] }
 
   it('aceita o formulário preenchido corretamente', () => {
     expect(() => validarAbertura(validos, agora)).not.toThrow()
@@ -127,6 +127,16 @@ describe('validarAbertura', () => {
 
   it.each([0, -1, 2.5])('recusa meta de Entregas %s', (metaEntregas) => {
     expect(() => validarAbertura({ ...validos, metaEntregas }, agora)).toThrow(String(metaEntregas))
+  })
+
+  it('aceita meta igual ao número de participantes: o Pool inteiro', () => {
+    const tres = { ...validos, metaEntregas: 3, participantes: ['ana@x.com', 'bia@x.com', 'caio@x.com'] }
+    expect(() => validarAbertura(tres, agora)).not.toThrow()
+  })
+
+  it('recusa meta maior que o Pool, porque seria impossível de cumprir', () => {
+    const demais = { ...validos, metaEntregas: 4, participantes: ['ana@x.com', 'bia@x.com', 'caio@x.com'] }
+    expect(() => validarAbertura(demais, agora)).toThrow('com 3 participantes o Pool terá 3 Estilos')
   })
 
   it('recusa abrir sem nenhum Membro ativo', () => {

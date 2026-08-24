@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { META_ENTREGAS_PADRAO, type Edicao } from '../domain/edicao'
 
 const props = defineProps<{
@@ -7,6 +7,8 @@ const props = defineProps<{
   /** Ações de gestão só aparecem para Organizador (SPEC.md §7). */
   souOrganizador: boolean
   temPendentes: boolean
+  /** Teto da meta: um Estilo por participante no Pool, sem repetir. */
+  maximoDeEntregas: number
 }>()
 
 const emit = defineEmits<{
@@ -17,14 +19,26 @@ const emit = defineEmits<{
 }>()
 
 const prazoDaNova = ref('')
-const metaDaNova = ref(META_ENTREGAS_PADRAO)
+// O padrão 3 não cabe numa confraria com menos de 3 Membros ativos.
+const metaSugerida = computed(() => Math.min(META_ENTREGAS_PADRAO, Math.max(props.maximoDeEntregas, 1)))
+const metaDaNova = ref(metaSugerida.value)
 const editandoPrazo = ref(false)
 const prazoEstendido = ref('')
+
+// A contagem de Membros ativos chega depois da montagem, então o campo começa
+// com um palpite e se acerta quando ela aparece (ou quando a lista muda).
+watch(metaSugerida, (sugestao) => {
+  metaDaNova.value = sugestao
+})
+
+const metaValida = computed(
+  () => Number.isInteger(metaDaNova.value) && metaDaNova.value >= 1 && metaDaNova.value <= props.maximoDeEntregas
+)
 
 function abrir(): void {
   emit('abrir', prazoDaNova.value, metaDaNova.value)
   prazoDaNova.value = ''
-  metaDaNova.value = META_ENTREGAS_PADRAO
+  metaDaNova.value = metaSugerida.value
 }
 
 function salvarPrazo(): void {
@@ -65,9 +79,19 @@ const estaFechada = () => props.edicao !== null && props.edicao.status !== 'aber
         </div>
         <div class="campo">
           <label class="rotulo" for="meta-nova">Entregas por participante</label>
-          <input id="meta-nova" v-model.number="metaDaNova" type="number" min="1" step="1" />
+          <input
+            id="meta-nova"
+            v-model.number="metaDaNova"
+            type="number"
+            min="1"
+            step="1"
+            :max="maximoDeEntregas"
+          />
+          <span class="limite" :class="{ 'limite-estourado': !metaValida }">
+            Máximo {{ maximoDeEntregas }}: o Pool terá um Estilo por Membro ativo, e ninguém repete Estilo.
+          </span>
         </div>
-        <button type="button" class="botao-primario" @click="abrir">
+        <button type="button" class="botao-primario" :disabled="!metaValida" @click="abrir">
           {{ estaFechada() ? 'Abrir próxima Edição' : 'Abrir Edição' }}
         </button>
       </template>
@@ -140,6 +164,15 @@ const estaFechada = () => props.edicao !== null && props.edicao.status !== 'aber
   text-transform: uppercase;
   letter-spacing: 0.04em;
   opacity: 0.7;
+}
+.limite {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  line-height: 1.35;
+}
+.limite-estourado {
+  color: #b3261e;
+  opacity: 1;
 }
 .prazo {
   display: flex;

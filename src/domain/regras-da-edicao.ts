@@ -83,6 +83,15 @@ export function validarAbertura(dados: DadosDeAbertura, agora: Date): void {
   if (dados.participantes.length === 0) {
     throw new ErroDeRegra('Nenhum Membro ativo para participar. Cadastre ou reative Membros antes de abrir a Edição.')
   }
+  // O Pool terá um Estilo por participante e ninguém repete Estilo na mesma
+  // Edição, então uma meta maior que isso seria impossível de cumprir — a Edição
+  // nunca fecharia por meta atingida (SPEC.md §4).
+  if (dados.metaEntregas > dados.participantes.length) {
+    throw new ErroDeRegra(
+      `Meta de ${dados.metaEntregas} Entregas é maior que o Pool: com ${dados.participantes.length} ` +
+        `participantes o Pool terá ${dados.participantes.length} Estilos, e ninguém pode repetir Estilo na mesma Edição.`
+    )
+  }
 }
 
 /**

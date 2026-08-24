@@ -32,49 +32,62 @@ describe('CicloDaEdicao', () => {
 
   describe('abrir', () => {
     it('faz snapshot só dos Membros ativos', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       expect(edicao.participantes).toEqual(['ana@exemplo.com', 'caio@exemplo.com'])
-      expect(edicao).toMatchObject({ status: 'aberta', metaEntregas: 3, fechadaEm: null })
+      expect(edicao).toMatchObject({ status: 'aberta', metaEntregas: 2, fechadaEm: null })
     })
 
     it('congela o snapshot: quem entra depois não vira participante', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await membros.criar(membro('Dina'))
       expect((await edicoes.buscarPorId(edicao.id))?.participantes).toEqual(['ana@exemplo.com', 'caio@exemplo.com'])
     })
 
     it('recusa uma segunda Edição enquanto a anterior não fecha', async () => {
-      await ciclo.abrir('2026-09-30', 3)
-      await expect(ciclo.abrir('2026-10-30', 3)).rejects.toThrow('ainda está aberta')
+      await ciclo.abrir('2026-09-30', 2)
+      await expect(ciclo.abrir('2026-10-30', 2)).rejects.toThrow('ainda está aberta')
     })
 
     it('libera a próxima Edição depois do fechamento', async () => {
-      const primeira = await ciclo.abrir('2026-09-30', 3)
+      const primeira = await ciclo.abrir('2026-09-30', 2)
       await ciclo.fechar(primeira.id)
-      await expect(ciclo.abrir('2026-10-30', 5)).resolves.toMatchObject({ metaEntregas: 5 })
+      await expect(ciclo.abrir('2026-10-30', 1)).resolves.toMatchObject({ metaEntregas: 1 })
     })
 
     it('recusa prazo no passado e meta inválida', async () => {
-      await expect(ciclo.abrir('2026-08-01', 3)).rejects.toThrow('já passou')
+      await expect(ciclo.abrir('2026-08-01', 2)).rejects.toThrow('já passou')
       await expect(ciclo.abrir('2026-09-30', 0)).rejects.toThrow('Meta de Entregas inválida')
+    })
+
+    it('recusa meta maior que o número de Membros ativos', async () => {
+      await expect(ciclo.abrir('2026-09-30', 3)).rejects.toThrow('com 2 participantes o Pool terá 2 Estilos')
+    })
+
+    it('deixa a meta chegar ao número de Membros ativos', async () => {
+      await expect(ciclo.abrir('2026-09-30', 2)).resolves.toMatchObject({ metaEntregas: 2 })
+    })
+
+    it('conta só os ativos no teto da meta: um Membro inativo não aumenta o Pool', async () => {
+      await membros.definirStatus('caio@exemplo.com', 'inativo')
+      await expect(ciclo.abrir('2026-09-30', 2)).rejects.toThrow('com 1 participantes')
     })
 
     it('recusa abrir sem Membro ativo', async () => {
       await membros.definirStatus('ana@exemplo.com', 'inativo')
       await membros.definirStatus('caio@exemplo.com', 'inativo')
-      await expect(ciclo.abrir('2026-09-30', 3)).rejects.toThrow('Nenhum Membro ativo')
+      await expect(ciclo.abrir('2026-09-30', 2)).rejects.toThrow('Nenhum Membro ativo')
     })
   })
 
   describe('estenderPrazo', () => {
     it('adia o prazo da Edição aberta', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await ciclo.estenderPrazo(edicao.id, '2026-10-31')
       expect(await edicoes.buscarPorId(edicao.id)).toMatchObject({ prazo: '2026-10-31' })
     })
 
     it('recusa encurtar', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await expect(ciclo.estenderPrazo(edicao.id, '2026-09-01')).rejects.toThrow('só pode ser estendido')
     })
   })
@@ -83,7 +96,7 @@ describe('CicloDaEdicao', () => {
     let edicao: Edicao
 
     beforeEach(async () => {
-      edicao = await ciclo.abrir('2026-09-30', 3)
+      edicao = await ciclo.abrir('2026-09-30', 2)
       await pool.reivindicar(edicao.id, { membroId: 'ana@exemplo.com', styleId: '21A' })
     })
 
@@ -122,19 +135,19 @@ describe('CicloDaEdicao', () => {
 
   describe('fechar', () => {
     it('cancela quando nada foi reivindicado', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       expect(await ciclo.fechar(edicao.id)).toBe('cancelada')
       expect(await edicoes.buscarPorId(edicao.id)).toMatchObject({ status: 'cancelada', fechadaEm: HOJE.toISOString() })
     })
 
     it('conclui quando houve atividade no Pool', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await pool.reivindicar(edicao.id, { membroId: 'ana@exemplo.com', styleId: '21A' })
       expect(await ciclo.fechar(edicao.id)).toBe('concluida')
     })
 
     it('conclui quando houve Entrega, mesmo sem nada no Pool', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await entregas.registrar(edicao.id, 'ana@exemplo.com', {
         styleId: '21A',
         observation: '',
@@ -144,13 +157,13 @@ describe('CicloDaEdicao', () => {
     })
 
     it('libera o singleton de Edição aberta', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await ciclo.fechar(edicao.id)
       expect(await edicoes.buscarAberta()).toBeNull()
     })
 
     it('recusa fechar duas vezes', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await ciclo.fechar(edicao.id)
       await expect(ciclo.fechar(edicao.id)).rejects.toThrow('já foi fechada')
     })
@@ -158,12 +171,12 @@ describe('CicloDaEdicao', () => {
 
   describe('fecharSePossivel', () => {
     it('não fecha com prazo em aberto e metas por cumprir', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       expect(await ciclo.fecharSePossivel(edicao)).toBeNull()
     })
 
     it('fecha quando o prazo já passou, com o resultado que a atividade determina', async () => {
-      const edicao = await ciclo.abrir('2026-08-23', 3)
+      const edicao = await ciclo.abrir('2026-08-23', 2)
       await pool.reivindicar(edicao.id, { membroId: 'ana@exemplo.com', styleId: '21A' })
       const cicloDepois = new CicloDaEdicao(edicoes, pool, membros, entregas, () => new Date(2026, 7, 24))
       expect(await cicloDepois.fecharSePossivel(edicao)).toBe('concluida')
@@ -194,7 +207,7 @@ describe('CicloDaEdicao', () => {
     })
 
     it('ignora Edição já fechada', async () => {
-      const edicao = await ciclo.abrir('2026-09-30', 3)
+      const edicao = await ciclo.abrir('2026-09-30', 2)
       await ciclo.fechar(edicao.id)
       const fechada = await edicoes.buscarPorId(edicao.id)
       expect(await ciclo.fecharSePossivel(fechada!)).toBeNull()

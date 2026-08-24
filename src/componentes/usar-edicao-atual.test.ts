@@ -30,7 +30,7 @@ function montar(logado: Membro | null = ANA, agora: () => Date = () => HOJE) {
   const ciclo = new CicloDaEdicao(edicoes, pool, membros, entregas, agora)
   const sorteio = new SorteioDoPool(edicoes, pool)
   const registro = new RegistroDeEntregas(edicoes, pool, entregas, agora)
-  return { edicoes, pool, entregas, atual: usarEdicaoAtual(consulta, ciclo, sorteio, registro, ref(logado)) }
+  return { edicoes, pool, entregas, membros, atual: usarEdicaoAtual(consulta, ciclo, sorteio, registro, ref(logado)) }
 }
 
 describe('usarEdicaoAtual', () => {
@@ -46,20 +46,37 @@ describe('usarEdicaoAtual', () => {
     expect(atual.fase.value).toBeNull()
   })
 
-  it('abre a Edição com todos os participantes pendentes na Fase 1', async () => {
+  it('limita a meta ao número de Membros ativos, o tamanho que o Pool terá', async () => {
+    expect(atual.maximoDeEntregas.value).toBe(2)
+  })
+
+  it('recusa meta acima do teto, sem criar Edição', async () => {
     await atual.abrir('2026-09-30', 3)
+    expect(atual.erro.value).toMatch(/com 2 participantes o Pool terá 2 Estilos/)
+    expect(atual.edicao.value).toBeNull()
+  })
+
+  it('não conta Membro inativo no teto', async () => {
+    const montagem = montar()
+    await montagem.membros.definirStatus('caio@exemplo.com', 'inativo')
+    await montagem.atual.recarregar()
+    expect(montagem.atual.maximoDeEntregas.value).toBe(1)
+  })
+
+  it('abre a Edição com todos os participantes pendentes na Fase 1', async () => {
+    await atual.abrir('2026-09-30', 2)
     expect(atual.fase.value).toBe('pool')
     expect(atual.pendentes.value).toEqual(['ana@exemplo.com', 'caio@exemplo.com'])
   })
 
   it('mostra a recusa de abrir com prazo no passado, sem criar Edição', async () => {
-    await atual.abrir('2026-01-01', 3)
+    await atual.abrir('2026-01-01', 2)
     expect(atual.erro.value).toMatch(/já passou/)
     expect(atual.edicao.value).toBeNull()
   })
 
   it('reivindica pelo Membro logado e tira o Estilo dos livres', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.reivindicar('21A')
     expect(atual.estiloDe('ana@exemplo.com')).toBe('21A')
     expect(atual.estilosLivres.value.some((estilo) => estilo.id === '21A')).toBe(false)
@@ -67,7 +84,7 @@ describe('usarEdicaoAtual', () => {
   })
 
   it('avança para Entregas quando o forçar avanço completa o Pool', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.reivindicar('21A')
     expect(atual.fase.value).toBe('pool')
     await atual.forcarAvanco({ 'caio@exemplo.com': '13C' })
@@ -76,7 +93,7 @@ describe('usarEdicaoAtual', () => {
   })
 
   it('mantém a Edição fechada na tela, como passo de Fechamento', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.reivindicar('21A')
     await atual.fechar()
     expect(atual.edicao.value).toMatchObject({ status: 'concluida' })
@@ -84,21 +101,21 @@ describe('usarEdicaoAtual', () => {
   })
 
   it('cancela ao fechar sem nenhuma atividade', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.fechar()
     expect(atual.edicao.value).toMatchObject({ status: 'cancelada' })
   })
 
   it('abre a próxima Edição direto do estado de Fechamento', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.fechar()
-    await atual.abrir('2026-10-31', 5)
-    expect(atual.edicao.value).toMatchObject({ status: 'aberta', metaEntregas: 5, prazo: '2026-10-31' })
+    await atual.abrir('2026-10-31', 1)
+    expect(atual.edicao.value).toMatchObject({ status: 'aberta', metaEntregas: 1, prazo: '2026-10-31' })
     expect(atual.pendentes.value).toHaveLength(2)
   })
 
   it('estende o prazo e recusa encurtá-lo', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     await atual.estenderPrazo('2026-10-31')
     expect(atual.edicao.value).toMatchObject({ prazo: '2026-10-31' })
     await atual.estenderPrazo('2026-10-01')
@@ -107,7 +124,7 @@ describe('usarEdicaoAtual', () => {
   })
 
   it('resolve o nome do participante e cai no id quando não conhece', async () => {
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     expect(atual.nomeDe('ana@exemplo.com')).toBe('Ana')
     expect(atual.nomeDe('sumido@exemplo.com')).toBe('sumido@exemplo.com')
   })
@@ -116,7 +133,7 @@ describe('usarEdicaoAtual', () => {
     it('não marca como pendente quem não é participante', async () => {
       const organizadora = montar()
       await organizadora.atual.recarregar()
-      await organizadora.atual.abrir('2026-09-30', 3)
+      await organizadora.atual.abrir('2026-09-30', 2)
       const visitante = montar(membro('Zeca', 'membro-comum'))
       await visitante.atual.recarregar()
       expect(visitante.atual.souPendente.value).toBe(false)
@@ -125,7 +142,7 @@ describe('usarEdicaoAtual', () => {
     it('recusa reivindicar sem sessão', async () => {
       const organizadora = montar()
       await organizadora.atual.recarregar()
-      await organizadora.atual.abrir('2026-09-30', 3)
+      await organizadora.atual.abrir('2026-09-30', 2)
       const anonimo = montar(null)
       await anonimo.atual.recarregar()
       await anonimo.atual.reivindicar('21A')
@@ -196,7 +213,7 @@ describe('usarEdicaoAtual', () => {
     it('fecha ao carregar quando o prazo venceu e quem olha é Organizador', async () => {
       const organizadora = montar(ANA)
       await organizadora.atual.recarregar()
-      await organizadora.atual.abrir('2026-08-23', 3)
+      await organizadora.atual.abrir('2026-08-23', 2)
       await organizadora.atual.reivindicar('21A')
 
       const depois = usarEdicaoAtualCompartilhado(organizadora, ANA, () => new Date(2026, 7, 24))
@@ -207,7 +224,7 @@ describe('usarEdicaoAtual', () => {
     it('não fecha quando quem abre a tela é Membro comum', async () => {
       const organizadora = montar(ANA)
       await organizadora.atual.recarregar()
-      await organizadora.atual.abrir('2026-08-23', 3)
+      await organizadora.atual.abrir('2026-08-23', 2)
 
       const comum = usarEdicaoAtualCompartilhado(organizadora, CAIO, () => new Date(2026, 7, 24))
       await comum.recarregar()
@@ -246,7 +263,7 @@ describe('falha técnica', () => {
       new FakeRepositorioEntregas()
     )
     const atual = usarEdicaoAtual(consulta, quebrado, {} as SorteioDoPool, {} as RegistroDeEntregas, ref(ANA))
-    await atual.abrir('2026-09-30', 3)
+    await atual.abrir('2026-09-30', 2)
     expect(atual.erro.value).toMatch(/Verifique sua conexão/)
     consoleErro.mockRestore()
   })

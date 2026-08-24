@@ -24,6 +24,11 @@ export interface EdicaoAtual {
   estiloDe(membroId: MembroId): EstiloId | null
   /** `true` quando o Membro logado é participante e ainda não reivindicou. */
   souPendente: ComputedRef<boolean>
+  /**
+   * Teto da meta de Entregas ao abrir uma Edição: o Pool terá um Estilo por
+   * participante e ninguém repete Estilo, então mais que isso é inatingível.
+   */
+  maximoDeEntregas: ComputedRef<number>
   /** Quantas Entregas o participante ainda deve nesta Edição (CONTEXT.md: Pendência). */
   pendenciaDe(membroId: MembroId): number
   entregasFeitasPor(membroId: MembroId): number
@@ -57,6 +62,7 @@ export function usarEdicaoAtual(
   const reivindicacoes = ref<ReivindicacaoPool[]>([])
   const entregasPorMembro = ref<EntregasDoMembro[]>([])
   const nomePorMembro = ref<Record<MembroId, string>>({})
+  const membrosAtivos = ref<MembroId[]>([])
   const carregando = ref(false)
   const erro = ref<string | null>(null)
 
@@ -65,6 +71,7 @@ export function usarEdicaoAtual(
     try {
       const carregada = await consulta.carregar()
       nomePorMembro.value = carregada.nomePorMembro
+      membrosAtivos.value = carregada.membrosAtivos
       reivindicacoes.value = carregada.reivindicacoes
       entregasPorMembro.value = carregada.entregasPorMembro
       edicao.value = carregada.edicao
@@ -104,6 +111,7 @@ export function usarEdicaoAtual(
     nomeDe: (membroId) => nomePorMembro.value[membroId] ?? membroId,
     estiloDe: (membroId) =>
       reivindicacoes.value.find((reivindicacao) => reivindicacao.membroId === membroId)?.styleId ?? null,
+    maximoDeEntregas: computed(() => membrosAtivos.value.length),
     pendenciaDe: (membroId) =>
       edicao.value ? pendencia(edicao.value.metaEntregas, entregasDe(entregasPorMembro.value, membroId)) : 0,
     entregasFeitasPor: (membroId) => entregasDe(entregasPorMembro.value, membroId).length,

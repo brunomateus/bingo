@@ -34,6 +34,7 @@ async function confirmarAvanco(escolhas: Record<MembroId, EstiloId>): Promise<vo
         :edicao="atual.edicao.value"
         :sou-organizador="sessao.ehOrganizador.value"
         :tem-pendentes="atual.pendentes.value.length > 0"
+        :maximo-de-entregas="atual.maximoDeEntregas.value"
         @abrir="atual.abrir"
         @estender-prazo="atual.estenderPrazo"
         @forcar-avanco="forcandoAvanco = true"
