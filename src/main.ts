@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import './style.css'
 import App from './App.vue'
-import router from './router'
+import { CHAVE_CONTEXTO, criarContextoDoApp } from './app/contexto-do-app'
+import { criarRoteador } from './router'
+
+const contexto = criarContextoDoApp(import.meta.env)
 
 const app = createApp(App)
-
-app.use(createPinia())
-app.use(router)
-
+app.provide(CHAVE_CONTEXTO, contexto)
+app.use(criarRoteador(contexto.sessao))
 app.mount('#app')

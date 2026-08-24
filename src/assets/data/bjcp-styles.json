@@ -1,0 +1,2522 @@
+[
+  {
+    "id": "1A",
+    "nome": "American Light Lager",
+    "categoria": "Standard American Beer",
+    "categoriaId": "1",
+    "densidadeOriginal": {
+      "minimo": 1.028,
+      "maximo": 1.04
+    },
+    "densidadeFinal": {
+      "minimo": 0.998,
+      "maximo": 1.008
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 12
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 3
+    },
+    "teorAlcoolico": {
+      "minimo": 2.8,
+      "maximo": 4.2
+    }
+  },
+  {
+    "id": "1B",
+    "nome": "American Lager",
+    "categoria": "Standard American Beer",
+    "categoriaId": "1",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.05
+    },
+    "densidadeFinal": {
+      "minimo": 1.004,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 18
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 3.5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 5.3
+    }
+  },
+  {
+    "id": "1C",
+    "nome": "Cream Ale",
+    "categoria": "Standard American Beer",
+    "categoriaId": "1",
+    "densidadeOriginal": {
+      "minimo": 1.042,
+      "maximo": 1.055
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 20
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 5.6
+    }
+  },
+  {
+    "id": "1D",
+    "nome": "American Wheat Beer",
+    "categoria": "Standard American Beer",
+    "categoriaId": "1",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.055
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "2A",
+    "nome": "International Pale Lager",
+    "categoria": "International Lager",
+    "categoriaId": "2",
+    "densidadeOriginal": {
+      "minimo": 1.042,
+      "maximo": 1.05
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "2B",
+    "nome": "International Amber Lager",
+    "categoria": "International Lager",
+    "categoriaId": "2",
+    "densidadeOriginal": {
+      "minimo": 1.042,
+      "maximo": 1.055
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "2C",
+    "nome": "International Dark Lager",
+    "categoria": "International Lager",
+    "categoriaId": "2",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.056
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 20
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 30
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "3A",
+    "nome": "Czech Pale Lager",
+    "categoria": "Czech Lager",
+    "categoriaId": "3",
+    "densidadeOriginal": {
+      "minimo": 1.028,
+      "maximo": 1.044
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 3,
+      "maximo": 4.1
+    }
+  },
+  {
+    "id": "3B",
+    "nome": "Czech Premium Pale Lager",
+    "categoria": "Czech Lager",
+    "categoriaId": "3",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.013,
+      "maximo": 1.017
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 3.5,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 5.8
+    }
+  },
+  {
+    "id": "3C",
+    "nome": "Czech Amber Lager",
+    "categoria": "Czech Lager",
+    "categoriaId": "3",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.013,
+      "maximo": 1.017
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 10,
+      "maximo": 16
+    },
+    "teorAlcoolico": {
+      "minimo": 4.4,
+      "maximo": 5.8
+    }
+  },
+  {
+    "id": "3D",
+    "nome": "Czech Dark Lager",
+    "categoria": "Czech Lager",
+    "categoriaId": "3",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.013,
+      "maximo": 1.017
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 34
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 35
+    },
+    "teorAlcoolico": {
+      "minimo": 4.4,
+      "maximo": 5.8
+    }
+  },
+  {
+    "id": "4A",
+    "nome": "Munich Helles",
+    "categoria": "Pale Malty European Lager",
+    "categoriaId": "4",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.048
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 16,
+      "maximo": 22
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.7,
+      "maximo": 5.4
+    }
+  },
+  {
+    "id": "4B",
+    "nome": "Festbier",
+    "categoria": "Pale Malty European Lager",
+    "categoriaId": "4",
+    "densidadeOriginal": {
+      "minimo": 1.054,
+      "maximo": 1.057
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 4,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 5.8,
+      "maximo": 6.3
+    }
+  },
+  {
+    "id": "4C",
+    "nome": "Helles Bock",
+    "categoria": "Pale Malty European Lager",
+    "categoriaId": "4",
+    "densidadeOriginal": {
+      "minimo": 1.064,
+      "maximo": 1.072
+    },
+    "densidadeFinal": {
+      "minimo": 1.011,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 23,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 9
+    },
+    "teorAlcoolico": {
+      "minimo": 6.3,
+      "maximo": 7.4
+    }
+  },
+  {
+    "id": "5A",
+    "nome": "German Leichtbier",
+    "categoria": "Pale Bitter European Beer",
+    "categoriaId": "5",
+    "densidadeOriginal": {
+      "minimo": 1.026,
+      "maximo": 1.034
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 28
+    },
+    "cor": {
+      "minimo": 1.5,
+      "maximo": 4
+    },
+    "teorAlcoolico": {
+      "minimo": 2.4,
+      "maximo": 3.6
+    }
+  },
+  {
+    "id": "5B",
+    "nome": "Kölsch",
+    "categoria": "Pale Bitter European Beer",
+    "categoriaId": "5",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.05
+    },
+    "densidadeFinal": {
+      "minimo": 1.007,
+      "maximo": 1.011
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 3.5,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.4,
+      "maximo": 5.2
+    }
+  },
+  {
+    "id": "5C",
+    "nome": "German Helles Exportbier",
+    "categoria": "Pale Bitter European Beer",
+    "categoriaId": "5",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.058
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 4,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "5D",
+    "nome": "German Pils",
+    "categoria": "Pale Bitter European Beer",
+    "categoriaId": "5",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.05
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 22,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 4
+    },
+    "teorAlcoolico": {
+      "minimo": 4.4,
+      "maximo": 5.2
+    }
+  },
+  {
+    "id": "6A",
+    "nome": "Märzen",
+    "categoria": "Amber Malty European Lager",
+    "categoriaId": "6",
+    "densidadeOriginal": {
+      "minimo": 1.054,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 24
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 17
+    },
+    "teorAlcoolico": {
+      "minimo": 5.6,
+      "maximo": 6.3
+    }
+  },
+  {
+    "id": "6B",
+    "nome": "Rauchbier",
+    "categoria": "Amber Malty European Lager",
+    "categoriaId": "6",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.057
+    },
+    "densidadeFinal": {
+      "minimo": 1.012,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 12,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 4.8,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "6C",
+    "nome": "Dunkles Bock",
+    "categoria": "Amber Malty European Lager",
+    "categoriaId": "6",
+    "densidadeOriginal": {
+      "minimo": 1.064,
+      "maximo": 1.072
+    },
+    "densidadeFinal": {
+      "minimo": 1.013,
+      "maximo": 1.019
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 27
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 6.3,
+      "maximo": 7.2
+    }
+  },
+  {
+    "id": "7A",
+    "nome": "Vienna Lager",
+    "categoria": "Amber Bitter European Beer",
+    "categoriaId": "7",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.055
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 9,
+      "maximo": 15
+    },
+    "teorAlcoolico": {
+      "minimo": 4.7,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "7B",
+    "nome": "Altbier",
+    "categoria": "Amber Bitter European Beer",
+    "categoriaId": "7",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.052
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 9,
+      "maximo": 17
+    },
+    "teorAlcoolico": {
+      "minimo": 4.3,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "8A",
+    "nome": "Munich Dunkel",
+    "categoria": "Dark European Lager",
+    "categoriaId": "8",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.056
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 28
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 28
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 5.6
+    }
+  },
+  {
+    "id": "8B",
+    "nome": "Schwarzbier",
+    "categoria": "Dark European Lager",
+    "categoriaId": "8",
+    "densidadeOriginal": {
+      "minimo": 1.046,
+      "maximo": 1.052
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 19,
+      "maximo": 30
+    },
+    "teorAlcoolico": {
+      "minimo": 4.4,
+      "maximo": 5.4
+    }
+  },
+  {
+    "id": "9A",
+    "nome": "Doppelbock",
+    "categoria": "Strong European Beer",
+    "categoriaId": "9",
+    "densidadeOriginal": {
+      "minimo": 1.072,
+      "maximo": 1.112
+    },
+    "densidadeFinal": {
+      "minimo": 1.016,
+      "maximo": 1.024
+    },
+    "amargor": {
+      "minimo": 16,
+      "maximo": 26
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 7,
+      "maximo": 10
+    }
+  },
+  {
+    "id": "9B",
+    "nome": "Eisbock",
+    "categoria": "Strong European Beer",
+    "categoriaId": "9",
+    "densidadeOriginal": {
+      "minimo": 1.078,
+      "maximo": 1.12
+    },
+    "densidadeFinal": {
+      "minimo": 1.02,
+      "maximo": 1.035
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 30
+    },
+    "teorAlcoolico": {
+      "minimo": 9,
+      "maximo": 14
+    }
+  },
+  {
+    "id": "9C",
+    "nome": "Baltic Porter",
+    "categoria": "Strong European Beer",
+    "categoriaId": "9",
+    "densidadeOriginal": {
+      "minimo": 1.06,
+      "maximo": 1.09
+    },
+    "densidadeFinal": {
+      "minimo": 1.016,
+      "maximo": 1.024
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 30
+    },
+    "teorAlcoolico": {
+      "minimo": 6.5,
+      "maximo": 9.5
+    }
+  },
+  {
+    "id": "10A",
+    "nome": "Weissbier",
+    "categoria": "German Wheat Beer",
+    "categoriaId": "10",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.053
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 15
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4.3,
+      "maximo": 5.6
+    }
+  },
+  {
+    "id": "10B",
+    "nome": "Dunkles Weissbier",
+    "categoria": "German Wheat Beer",
+    "categoriaId": "10",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.057
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 18
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 23
+    },
+    "teorAlcoolico": {
+      "minimo": 4.3,
+      "maximo": 5.6
+    }
+  },
+  {
+    "id": "10C",
+    "nome": "Weizenbock",
+    "categoria": "German Wheat Beer",
+    "categoriaId": "10",
+    "densidadeOriginal": {
+      "minimo": 1.064,
+      "maximo": 1.09
+    },
+    "densidadeFinal": {
+      "minimo": 1.015,
+      "maximo": 1.022
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 6.5,
+      "maximo": 9
+    }
+  },
+  {
+    "id": "11A",
+    "nome": "Ordinary Bitter",
+    "categoria": "British Bitter",
+    "categoriaId": "11",
+    "densidadeOriginal": {
+      "minimo": 1.03,
+      "maximo": 1.039
+    },
+    "densidadeFinal": {
+      "minimo": 1.007,
+      "maximo": 1.011
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 3.2,
+      "maximo": 3.8
+    }
+  },
+  {
+    "id": "11B",
+    "nome": "Best Bitter",
+    "categoria": "British Bitter",
+    "categoriaId": "11",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.048
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 16
+    },
+    "teorAlcoolico": {
+      "minimo": 3.8,
+      "maximo": 4.6
+    }
+  },
+  {
+    "id": "11C",
+    "nome": "Strong Bitter",
+    "categoria": "British Bitter",
+    "categoriaId": "11",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 18
+    },
+    "teorAlcoolico": {
+      "minimo": 4.6,
+      "maximo": 6.2
+    }
+  },
+  {
+    "id": "12A",
+    "nome": "British Golden Ale",
+    "categoria": "Pale Commonwealth Beer",
+    "categoriaId": "12",
+    "densidadeOriginal": {
+      "minimo": 1.038,
+      "maximo": 1.053
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 3.8,
+      "maximo": 5
+    }
+  },
+  {
+    "id": "12B",
+    "nome": "Australian Sparkling Ale",
+    "categoria": "Pale Commonwealth Beer",
+    "categoriaId": "12",
+    "densidadeOriginal": {
+      "minimo": 1.038,
+      "maximo": 1.05
+    },
+    "densidadeFinal": {
+      "minimo": 1.004,
+      "maximo": 1.006
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 4,
+      "maximo": 7
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "12C",
+    "nome": "English IPA",
+    "categoria": "Pale Commonwealth Beer",
+    "categoriaId": "12",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.07
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 40,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 7.5
+    }
+  },
+  {
+    "id": "13A",
+    "nome": "Dark Mild",
+    "categoria": "Brown British Beer",
+    "categoriaId": "13",
+    "densidadeOriginal": {
+      "minimo": 1.03,
+      "maximo": 1.038
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 3,
+      "maximo": 3.8
+    }
+  },
+  {
+    "id": "13B",
+    "nome": "British Brown Ale",
+    "categoria": "Brown British Beer",
+    "categoriaId": "13",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.052
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 12,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 5.9
+    }
+  },
+  {
+    "id": "13C",
+    "nome": "English Porter",
+    "categoria": "Brown British Beer",
+    "categoriaId": "13",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.052
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "teorAlcoolico": {
+      "minimo": 4,
+      "maximo": 5.4
+    }
+  },
+  {
+    "id": "14A",
+    "nome": "Scottish Light",
+    "categoria": "Scottish Ale",
+    "categoriaId": "14",
+    "densidadeOriginal": {
+      "minimo": 1.03,
+      "maximo": 1.035
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 20
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 2.5,
+      "maximo": 3.3
+    }
+  },
+  {
+    "id": "14B",
+    "nome": "Scottish Heavy",
+    "categoria": "Scottish Ale",
+    "categoriaId": "14",
+    "densidadeOriginal": {
+      "minimo": 1.035,
+      "maximo": 1.04
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 20
+    },
+    "cor": {
+      "minimo": 12,
+      "maximo": 20
+    },
+    "teorAlcoolico": {
+      "minimo": 3.3,
+      "maximo": 3.9
+    }
+  },
+  {
+    "id": "14C",
+    "nome": "Scottish Export",
+    "categoria": "Scottish Ale",
+    "categoriaId": "14",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 12,
+      "maximo": 20
+    },
+    "teorAlcoolico": {
+      "minimo": 3.9,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "15A",
+    "nome": "Irish Red Ale",
+    "categoria": "Irish Beer",
+    "categoriaId": "15",
+    "densidadeOriginal": {
+      "minimo": 1.036,
+      "maximo": 1.046
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 28
+    },
+    "cor": {
+      "minimo": 9,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 3.8,
+      "maximo": 5
+    }
+  },
+  {
+    "id": "15B",
+    "nome": "Irish Stout",
+    "categoria": "Irish Beer",
+    "categoriaId": "15",
+    "densidadeOriginal": {
+      "minimo": 1.036,
+      "maximo": 1.044
+    },
+    "densidadeFinal": {
+      "minimo": 1.007,
+      "maximo": 1.011
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 25,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 3.8,
+      "maximo": 5
+    }
+  },
+  {
+    "id": "15C",
+    "nome": "Irish Extra Stout",
+    "categoria": "Irish Beer",
+    "categoriaId": "15",
+    "densidadeOriginal": {
+      "minimo": 1.052,
+      "maximo": 1.062
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 35,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 6.5
+    }
+  },
+  {
+    "id": "16A",
+    "nome": "Sweet Stout",
+    "categoria": "Dark British Beer",
+    "categoriaId": "16",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.012,
+      "maximo": 1.024
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 4,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "16B",
+    "nome": "Oatmeal Stout",
+    "categoria": "Dark British Beer",
+    "categoriaId": "16",
+    "densidadeOriginal": {
+      "minimo": 1.045,
+      "maximo": 1.065
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 22,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 5.9
+    }
+  },
+  {
+    "id": "16C",
+    "nome": "Tropical Stout",
+    "categoria": "Dark British Beer",
+    "categoriaId": "16",
+    "densidadeOriginal": {
+      "minimo": 1.056,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 5.5,
+      "maximo": 8
+    }
+  },
+  {
+    "id": "16D",
+    "nome": "Foreign Extra Stout",
+    "categoria": "Dark British Beer",
+    "categoriaId": "16",
+    "densidadeOriginal": {
+      "minimo": 1.056,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 50,
+      "maximo": 70
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 6.3,
+      "maximo": 8
+    }
+  },
+  {
+    "id": "17A",
+    "nome": "British Strong Ale",
+    "categoria": "Strong British Ale",
+    "categoriaId": "17",
+    "densidadeOriginal": {
+      "minimo": 1.055,
+      "maximo": 1.08
+    },
+    "densidadeFinal": {
+      "minimo": 1.015,
+      "maximo": 1.022
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 5.5,
+      "maximo": 8
+    }
+  },
+  {
+    "id": "17B",
+    "nome": "Old Ale",
+    "categoria": "Strong British Ale",
+    "categoriaId": "17",
+    "densidadeOriginal": {
+      "minimo": 1.055,
+      "maximo": 1.088
+    },
+    "densidadeFinal": {
+      "minimo": 1.015,
+      "maximo": 1.022
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 10,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 5.5,
+      "maximo": 9
+    }
+  },
+  {
+    "id": "17C",
+    "nome": "Wee Heavy",
+    "categoria": "Strong British Ale",
+    "categoriaId": "17",
+    "densidadeOriginal": {
+      "minimo": 1.07,
+      "maximo": 1.13
+    },
+    "densidadeFinal": {
+      "minimo": 1.018,
+      "maximo": 1.04
+    },
+    "amargor": {
+      "minimo": 17,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 6.5,
+      "maximo": 10
+    }
+  },
+  {
+    "id": "17D",
+    "nome": "English Barley Wine",
+    "categoria": "Strong British Ale",
+    "categoriaId": "17",
+    "densidadeOriginal": {
+      "minimo": 1.08,
+      "maximo": 1.12
+    },
+    "densidadeFinal": {
+      "minimo": 1.018,
+      "maximo": 1.03
+    },
+    "amargor": {
+      "minimo": 35,
+      "maximo": 70
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 8,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "18A",
+    "nome": "Blonde Ale",
+    "categoria": "Pale American Ale",
+    "categoriaId": "18",
+    "densidadeOriginal": {
+      "minimo": 1.038,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 28
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 3.8,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "18B",
+    "nome": "American Pale Ale",
+    "categoria": "Pale American Ale",
+    "categoriaId": "18",
+    "densidadeOriginal": {
+      "minimo": 1.045,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 5,
+      "maximo": 10
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 6.2
+    }
+  },
+  {
+    "id": "19A",
+    "nome": "American Amber Ale",
+    "categoria": "Amber and Brown American Beer",
+    "categoriaId": "19",
+    "densidadeOriginal": {
+      "minimo": 1.045,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 10,
+      "maximo": 17
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 6.2
+    }
+  },
+  {
+    "id": "19B",
+    "nome": "California Common",
+    "categoria": "Amber and Brown American Beer",
+    "categoriaId": "19",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.011,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 9,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "19C",
+    "nome": "American Brown Ale",
+    "categoria": "Amber and Brown American Beer",
+    "categoriaId": "19",
+    "densidadeOriginal": {
+      "minimo": 1.045,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 18,
+      "maximo": 35
+    },
+    "teorAlcoolico": {
+      "minimo": 4.3,
+      "maximo": 6.2
+    }
+  },
+  {
+    "id": "20A",
+    "nome": "American Porter",
+    "categoria": "American Porter and Stout",
+    "categoriaId": "20",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.07
+    },
+    "densidadeFinal": {
+      "minimo": 1.012,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 50
+    },
+    "cor": {
+      "minimo": 22,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 4.8,
+      "maximo": 6.5
+    }
+  },
+  {
+    "id": "20B",
+    "nome": "American Stout",
+    "categoria": "American Porter and Stout",
+    "categoriaId": "20",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.022
+    },
+    "amargor": {
+      "minimo": 35,
+      "maximo": 75
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 7
+    }
+  },
+  {
+    "id": "20C",
+    "nome": "Imperial Stout",
+    "categoria": "American Porter and Stout",
+    "categoriaId": "20",
+    "densidadeOriginal": {
+      "minimo": 1.075,
+      "maximo": 1.115
+    },
+    "densidadeFinal": {
+      "minimo": 1.018,
+      "maximo": 1.03
+    },
+    "amargor": {
+      "minimo": 50,
+      "maximo": 90
+    },
+    "cor": {
+      "minimo": 30,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 8,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "21A",
+    "nome": "American IPA",
+    "categoria": "IPA",
+    "categoriaId": "21",
+    "densidadeOriginal": {
+      "minimo": 1.056,
+      "maximo": 1.07
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 40,
+      "maximo": 70
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 5.5,
+      "maximo": 7.5
+    }
+  },
+  {
+    "id": "21B",
+    "nome": "Specialty IPA",
+    "categoria": "IPA",
+    "categoriaId": "21",
+    "densidadeOriginal": {
+      "minimo": 1.05,
+      "maximo": 1.085
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 50,
+      "maximo": 90
+    },
+    "cor": {
+      "minimo": 25,
+      "maximo": 40
+    },
+    "teorAlcoolico": {
+      "minimo": 5.5,
+      "maximo": 9
+    }
+  },
+  {
+    "id": "21C",
+    "nome": "Hazy IPA",
+    "categoria": "IPA",
+    "categoriaId": "21",
+    "densidadeOriginal": {
+      "minimo": 1.06,
+      "maximo": 1.085
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 7
+    },
+    "teorAlcoolico": {
+      "minimo": 6,
+      "maximo": 9
+    }
+  },
+  {
+    "id": "22A",
+    "nome": "Double IPA",
+    "categoria": "Strong American Ale",
+    "categoriaId": "22",
+    "densidadeOriginal": {
+      "minimo": 1.065,
+      "maximo": 1.085
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 60,
+      "maximo": 100
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 7.5,
+      "maximo": 10
+    }
+  },
+  {
+    "id": "22B",
+    "nome": "American Strong Ale",
+    "categoria": "Strong American Ale",
+    "categoriaId": "22",
+    "densidadeOriginal": {
+      "minimo": 1.062,
+      "maximo": 1.09
+    },
+    "densidadeFinal": {
+      "minimo": 1.014,
+      "maximo": 1.024
+    },
+    "amargor": {
+      "minimo": 50,
+      "maximo": 100
+    },
+    "cor": {
+      "minimo": 7,
+      "maximo": 18
+    },
+    "teorAlcoolico": {
+      "minimo": 6.3,
+      "maximo": 10
+    }
+  },
+  {
+    "id": "22C",
+    "nome": "American Barleywine",
+    "categoria": "Strong American Ale",
+    "categoriaId": "22",
+    "densidadeOriginal": {
+      "minimo": 1.08,
+      "maximo": 1.12
+    },
+    "densidadeFinal": {
+      "minimo": 1.016,
+      "maximo": 1.03
+    },
+    "amargor": {
+      "minimo": 50,
+      "maximo": 100
+    },
+    "cor": {
+      "minimo": 9,
+      "maximo": 18
+    },
+    "teorAlcoolico": {
+      "minimo": 8,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "22D",
+    "nome": "Wheatwine",
+    "categoria": "Strong American Ale",
+    "categoriaId": "22",
+    "densidadeOriginal": {
+      "minimo": 1.08,
+      "maximo": 1.12
+    },
+    "densidadeFinal": {
+      "minimo": 1.016,
+      "maximo": 1.03
+    },
+    "amargor": {
+      "minimo": 30,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 8,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "23A",
+    "nome": "Berliner Weisse",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.028,
+      "maximo": 1.032
+    },
+    "densidadeFinal": {
+      "minimo": 1.003,
+      "maximo": 1.006
+    },
+    "amargor": {
+      "minimo": 3,
+      "maximo": 8
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 3
+    },
+    "teorAlcoolico": {
+      "minimo": 2.8,
+      "maximo": 3.8
+    }
+  },
+  {
+    "id": "23B",
+    "nome": "Flanders Red Ale",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.057
+    },
+    "densidadeFinal": {
+      "minimo": 1.002,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 10,
+      "maximo": 17
+    },
+    "teorAlcoolico": {
+      "minimo": 4.6,
+      "maximo": 6.5
+    }
+  },
+  {
+    "id": "23C",
+    "nome": "Oud Bruin",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.074
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 17,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 4,
+      "maximo": 8
+    }
+  },
+  {
+    "id": "23D",
+    "nome": "Lambic",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.001,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 0,
+      "maximo": 10
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 6.5
+    }
+  },
+  {
+    "id": "23E",
+    "nome": "Gueuze",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1,
+      "maximo": 1.006
+    },
+    "amargor": {
+      "minimo": 0,
+      "maximo": 10
+    },
+    "cor": {
+      "minimo": 5,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 8
+    }
+  },
+  {
+    "id": "23F",
+    "nome": "Fruit Lambic",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.04,
+      "maximo": 1.06
+    },
+    "densidadeFinal": {
+      "minimo": 1,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 0,
+      "maximo": 10
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 7
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 7
+    }
+  },
+  {
+    "id": "23G",
+    "nome": "Gose",
+    "categoria": "European Sour Ale",
+    "categoriaId": "23",
+    "densidadeOriginal": {
+      "minimo": 1.036,
+      "maximo": 1.056
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 5,
+      "maximo": 12
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 4
+    },
+    "teorAlcoolico": {
+      "minimo": 4.2,
+      "maximo": 4.8
+    }
+  },
+  {
+    "id": "24A",
+    "nome": "Witbier",
+    "categoria": "Belgian Ale",
+    "categoriaId": "24",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.052
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 8,
+      "maximo": 20
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 4
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "24B",
+    "nome": "Belgian Pale Ale",
+    "categoria": "Belgian Ale",
+    "categoriaId": "24",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 8,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 4.8,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "24C",
+    "nome": "Bière de Garde",
+    "categoria": "Belgian Ale",
+    "categoriaId": "24",
+    "densidadeOriginal": {
+      "minimo": 1.06,
+      "maximo": 1.08
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 18,
+      "maximo": 28
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 19
+    },
+    "teorAlcoolico": {
+      "minimo": 6,
+      "maximo": 8.5
+    }
+  },
+  {
+    "id": "25A",
+    "nome": "Belgian Blond Ale",
+    "categoria": "Strong Belgian Ale",
+    "categoriaId": "25",
+    "densidadeOriginal": {
+      "minimo": 1.062,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 4,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 6,
+      "maximo": 7.5
+    }
+  },
+  {
+    "id": "25B",
+    "nome": "Saison",
+    "categoria": "Strong Belgian Ale",
+    "categoriaId": "25",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.065
+    },
+    "densidadeFinal": {
+      "minimo": 1.002,
+      "maximo": 1.008
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 5,
+      "maximo": 14
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 7
+    }
+  },
+  {
+    "id": "25C",
+    "nome": "Belgian Golden Strong Ale",
+    "categoria": "Strong Belgian Ale",
+    "categoriaId": "25",
+    "densidadeOriginal": {
+      "minimo": 1.07,
+      "maximo": 1.095
+    },
+    "densidadeFinal": {
+      "minimo": 1.005,
+      "maximo": 1.016
+    },
+    "amargor": {
+      "minimo": 22,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 7.5,
+      "maximo": 10.5
+    }
+  },
+  {
+    "id": "26A",
+    "nome": "Belgian Single",
+    "categoria": "Monastic Ale",
+    "categoriaId": "26",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.004,
+      "maximo": 1.01
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.8,
+      "maximo": 6
+    }
+  },
+  {
+    "id": "26B",
+    "nome": "Belgian Dubbel",
+    "categoria": "Monastic Ale",
+    "categoriaId": "26",
+    "densidadeOriginal": {
+      "minimo": 1.062,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.018
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 25
+    },
+    "cor": {
+      "minimo": 10,
+      "maximo": 17
+    },
+    "teorAlcoolico": {
+      "minimo": 6,
+      "maximo": 7.6
+    }
+  },
+  {
+    "id": "26C",
+    "nome": "Belgian Tripel",
+    "categoria": "Monastic Ale",
+    "categoriaId": "26",
+    "densidadeOriginal": {
+      "minimo": 1.075,
+      "maximo": 1.085
+    },
+    "densidadeFinal": {
+      "minimo": 1.008,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 40
+    },
+    "cor": {
+      "minimo": 4.5,
+      "maximo": 7
+    },
+    "teorAlcoolico": {
+      "minimo": 7.5,
+      "maximo": 9.5
+    }
+  },
+  {
+    "id": "26D",
+    "nome": "Belgian Dark Strong Ale",
+    "categoria": "Monastic Ale",
+    "categoriaId": "26",
+    "densidadeOriginal": {
+      "minimo": 1.075,
+      "maximo": 1.11
+    },
+    "densidadeFinal": {
+      "minimo": 1.01,
+      "maximo": 1.024
+    },
+    "amargor": {
+      "minimo": 20,
+      "maximo": 35
+    },
+    "cor": {
+      "minimo": 12,
+      "maximo": 22
+    },
+    "teorAlcoolico": {
+      "minimo": 8,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "28A",
+    "nome": "Brett Beer",
+    "categoria": "American Wild Ale",
+    "categoriaId": "28"
+  },
+  {
+    "id": "28B",
+    "nome": "Mixed-Fermentation Sour Beer",
+    "categoria": "American Wild Ale",
+    "categoriaId": "28"
+  },
+  {
+    "id": "28C",
+    "nome": "Wild Specialty Beer",
+    "categoria": "American Wild Ale",
+    "categoriaId": "28"
+  },
+  {
+    "id": "28D",
+    "nome": "Straight Sour Beer",
+    "categoria": "American Wild Ale",
+    "categoriaId": "28",
+    "densidadeOriginal": {
+      "minimo": 1.048,
+      "maximo": 1.065
+    },
+    "densidadeFinal": {
+      "minimo": 1.006,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 3,
+      "maximo": 8
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 3
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 7
+    }
+  },
+  {
+    "id": "29A",
+    "nome": "Fruit Beer",
+    "categoria": "Fruit Beer",
+    "categoriaId": "29"
+  },
+  {
+    "id": "29B",
+    "nome": "Fruit and Spice Beer",
+    "categoria": "Fruit Beer",
+    "categoriaId": "29"
+  },
+  {
+    "id": "29C",
+    "nome": "Specialty Fruit Beer",
+    "categoria": "Fruit Beer",
+    "categoriaId": "29"
+  },
+  {
+    "id": "29D",
+    "nome": "Grape Ale",
+    "categoria": "Fruit Beer",
+    "categoriaId": "29",
+    "densidadeOriginal": {
+      "minimo": 1.059,
+      "maximo": 1.075
+    },
+    "densidadeFinal": {
+      "minimo": 1.004,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 10,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 4,
+      "maximo": 8
+    },
+    "teorAlcoolico": {
+      "minimo": 6,
+      "maximo": 8.5
+    }
+  },
+  {
+    "id": "30A",
+    "nome": "Spice, Herb, or Vegetable Beer",
+    "categoria": "Spiced Beer",
+    "categoriaId": "30"
+  },
+  {
+    "id": "30B",
+    "nome": "Autumn Seasonal Beer",
+    "categoria": "Spiced Beer",
+    "categoriaId": "30"
+  },
+  {
+    "id": "30C",
+    "nome": "Winter Seasonal Beer",
+    "categoria": "Spiced Beer",
+    "categoriaId": "30"
+  },
+  {
+    "id": "30D",
+    "nome": "Specialty Spice Beer",
+    "categoria": "Spiced Beer",
+    "categoriaId": "30"
+  },
+  {
+    "id": "31A",
+    "nome": "Alternative Grain Beer",
+    "categoria": "Alternative Fermentables Beer",
+    "categoriaId": "31"
+  },
+  {
+    "id": "31B",
+    "nome": "Alternative Sugar Beer",
+    "categoria": "Alternative Fermentables Beer",
+    "categoriaId": "31"
+  },
+  {
+    "id": "32A",
+    "nome": "Classic Style Smoked Beer",
+    "categoria": "Smoked Beer",
+    "categoriaId": "32"
+  },
+  {
+    "id": "32B",
+    "nome": "Specialty Smoked Beer",
+    "categoria": "Smoked Beer",
+    "categoriaId": "32"
+  },
+  {
+    "id": "34A",
+    "nome": "Commercial Specialty Beer",
+    "categoria": "Specialty Beer",
+    "categoriaId": "34"
+  },
+  {
+    "id": "34B",
+    "nome": "Mixed-Style Beer",
+    "categoria": "Specialty Beer",
+    "categoriaId": "34"
+  },
+  {
+    "id": "34C",
+    "nome": "Experimental Beer",
+    "categoria": "Specialty Beer",
+    "categoriaId": "34"
+  },
+  {
+    "id": "X1",
+    "nome": "Dorada Pampeana",
+    "categoria": "Argentine Styles",
+    "categoriaId": "X",
+    "densidadeOriginal": {
+      "minimo": 1.042,
+      "maximo": 1.054
+    },
+    "densidadeFinal": {
+      "minimo": 1.009,
+      "maximo": 1.013
+    },
+    "amargor": {
+      "minimo": 15,
+      "maximo": 22
+    },
+    "cor": {
+      "minimo": 3,
+      "maximo": 5
+    },
+    "teorAlcoolico": {
+      "minimo": 4.3,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "X2",
+    "nome": "IPA Argenta",
+    "categoria": "Argentine Styles",
+    "categoriaId": "X",
+    "densidadeOriginal": {
+      "minimo": 1055,
+      "maximo": 1065
+    },
+    "densidadeFinal": {
+      "minimo": 1008,
+      "maximo": 1015
+    },
+    "amargor": {
+      "minimo": 35,
+      "maximo": 60
+    },
+    "cor": {
+      "minimo": 6,
+      "maximo": 15
+    },
+    "teorAlcoolico": {
+      "minimo": 5,
+      "maximo": 6.5
+    }
+  },
+  {
+    "id": "X3",
+    "nome": "Italian Grape Ale",
+    "categoria": "Italian Styles",
+    "categoriaId": "X",
+    "densidadeOriginal": {
+      "minimo": 1.045,
+      "maximo": 1.1
+    },
+    "densidadeFinal": {
+      "minimo": 1.005,
+      "maximo": 1.015
+    },
+    "amargor": {
+      "minimo": 6,
+      "maximo": 30
+    },
+    "cor": {
+      "minimo": 14,
+      "maximo": 25
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 12
+    }
+  },
+  {
+    "id": "X4",
+    "nome": "Catharina Sour",
+    "categoria": "Brazilian Styles",
+    "categoriaId": "X",
+    "densidadeOriginal": {
+      "minimo": 1.039,
+      "maximo": 1.048
+    },
+    "densidadeFinal": {
+      "minimo": 1.004,
+      "maximo": 1.012
+    },
+    "amargor": {
+      "minimo": 2,
+      "maximo": 8
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4,
+      "maximo": 5.5
+    }
+  },
+  {
+    "id": "X5",
+    "nome": "New Zealand Pilsner",
+    "categoria": "New Zealand Styles",
+    "categoriaId": "X",
+    "densidadeOriginal": {
+      "minimo": 1.044,
+      "maximo": 1.056
+    },
+    "densidadeFinal": {
+      "minimo": 1.009,
+      "maximo": 1.014
+    },
+    "amargor": {
+      "minimo": 25,
+      "maximo": 45
+    },
+    "cor": {
+      "minimo": 2,
+      "maximo": 6
+    },
+    "teorAlcoolico": {
+      "minimo": 4.5,
+      "maximo": 5.8
+    }
+  }
+]

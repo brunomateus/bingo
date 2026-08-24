@@ -1,0 +1,183 @@
+rules_version = '2';
+
+// Acesso por papel conforme a tabela do SPEC.md §7. Cada fatia acrescenta as
+// regras da sua coleção; o que ainda não foi implementado segue negado.
+//
+// Fora do alcance das regras: a guarda do último Organizador ativo (SPEC.md §2)
+// exige contar documentos da coleção, o que rules não fazem — ela é garantida
+// pelo caso de uso `GestaoDeMembros`, e Organizadores são papéis de confiança.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function autenticado() {
+      return request.auth != null && request.auth.token.email != null;
+    }
+
+    // O id do documento é o e-mail normalizado (SPEC.md §7), o que permite
+    // amarrar a identidade do Auth ao registro sem uma query.
+    function meuId() {
+      return request.auth.token.email.lower();
+    }
+
+    function meuRegistro() {
+      return get(/databases/$(database)/documents/membros/$(meuId())).data;
+    }
+
+    function souMembroAtivo() {
+      return autenticado()
+        && exists(/databases/$(database)/documents/membros/$(meuId()))
+        && meuRegistro().status == 'ativo';
+    }
+
+    function souOrganizadorAtivo() {
+      return autenticado()
+        && exists(/databases/$(database)/documents/membros/$(meuId()))
+        && meuRegistro().papel == 'organizador'
+        && meuRegistro().status == 'ativo';
+    }
+
+    function membroValido(dados, membroId) {
+      return dados.keys().hasOnly(['nome', 'email', 'papel', 'status', 'uid'])
+        && dados.keys().hasAll(['nome', 'email', 'papel', 'status', 'uid'])
+        && dados.nome is string && dados.nome.size() > 0
+        && dados.email == membroId
+        && dados.papel in ['organizador', 'membro-comum']
+        && dados.status in ['ativo', 'inativo'];
+    }
+
+    // Único caso em que um Membro comum escreve no próprio registro: gravar o
+    // UID no 1º login (SPEC.md §2). Só uma vez, e só com o próprio uid.
+    function apenasVinculaProprioUid(membroId) {
+      return autenticado()
+        && membroId == meuId()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['uid'])
+        && resource.data.uid == null
+        && request.resource.data.uid == request.auth.uid;
+    }
+
+    match /membros/{membroId} {
+      // Ler o próprio registro é o que valida o login — vale mesmo para quem está
+      // inativo, para o app conseguir explicar a recusa.
+      allow get: if autenticado() && membroId == meuId();
+      // Leitura ampla para Membro ativo: o Sorteio e o Histórico precisam do nome
+      // dos participantes. Isso expõe os e-mails de todos aos Membros — o §7 pedia
+      // e-mail restrito, mas com o id do documento sendo o próprio e-mail não há
+      // como esconder (ver nota no README/SPEC).
+      allow get, list: if souMembroAtivo();
+
+      allow create: if souOrganizadorAtivo()
+        && membroValido(request.resource.data, membroId)
+        && request.resource.data.uid == null;
+      allow update: if souOrganizadorAtivo() && membroValido(request.resource.data, membroId);
+      allow update: if apenasVinculaProprioUid(membroId);
+
+      // "Remover da confraria" é soft delete: status inativo, registro preservado.
+      allow delete: if false;
+    }
+
+    // Singleton que aponta a Edição aberta. É ele que garante, com a transação do
+    // cliente, no máximo uma Edição aberta por vez (SPEC.md §7).
+    match /estado/atual {
+      allow get: if souMembroAtivo();
+      allow create, update: if souOrganizadorAtivo()
+        && request.resource.data.keys().hasOnly(['edicaoAbertaId']);
+      allow delete: if false;
+    }
+
+    match /edicoes/{edicaoId} {
+      function edicaoValida(dados) {
+        return dados.keys().hasOnly(['prazo', 'metaEntregas', 'status', 'participantes', 'fechadaEm'])
+          && dados.keys().hasAll(['prazo', 'metaEntregas', 'status', 'participantes', 'fechadaEm'])
+          && dados.prazo is string
+          && dados.metaEntregas is int && dados.metaEntregas >= 1
+          && dados.status in ['aberta', 'concluida', 'cancelada']
+          && dados.participantes is list;
+      }
+
+      allow get, list: if souMembroAtivo();
+      allow create: if souOrganizadorAtivo()
+        && edicaoValida(request.resource.data)
+        && request.resource.data.status == 'aberta'
+        && request.resource.data.fechadaEm == null;
+      // Meta de Entregas e participantes são fixos depois de abrir (SPEC.md §3);
+      // só prazo, status e fechadaEm mudam ao longo da vida da Edição.
+      allow update: if souOrganizadorAtivo()
+        && edicaoValida(request.resource.data)
+        && request.resource.data.metaEntregas == resource.data.metaEntregas
+        && request.resource.data.participantes == resource.data.participantes;
+      allow delete: if false;
+
+      function edicaoAberta() {
+        return get(/databases/$(database)/documents/edicoes/$(edicaoId)).data.status == 'aberta';
+      }
+
+      function ehParticipante(id) {
+        return get(/databases/$(database)/documents/edicoes/$(edicaoId)).data.participantes.hasAny([id]);
+      }
+
+      // Fase 1: cada participante reivindica um Estilo. O id do documento sendo o
+      // do Membro já garante "no máximo um Estilo por Membro"; `update` negado
+      // impede trocar o Estilo depois de reivindicado.
+      match /pool/{membroId} {
+        allow get, list: if souMembroAtivo();
+        allow create: if souMembroAtivo()
+          && edicaoAberta()
+          && ehParticipante(membroId)
+          && request.resource.data.keys().hasOnly(['styleId'])
+          && request.resource.data.styleId is string
+          && (membroId == meuId() || souOrganizadorAtivo());
+        allow update, delete: if false;
+      }
+
+      function entregaValida(entrega) {
+        return entrega.keys().hasOnly(['styleId', 'observation', 'deliveredAt'])
+          && entrega.keys().hasAll(['styleId', 'observation', 'deliveredAt'])
+          && entrega.styleId is string
+          && entrega.observation is string
+          && entrega.deliveredAt is string
+          // O Estilo precisa estar no Pool desta Edição (SPEC.md §4) — o índice de
+          // unicidade do Pool serve de lista consultável pelas regras.
+          && exists(/databases/$(database)/documents/edicoes/$(edicaoId)/estilos-do-pool/$(entrega.styleId));
+      }
+
+      function dentroDaMeta(quantidade) {
+        return quantidade <= get(/databases/$(database)/documents/edicoes/$(edicaoId)).data.metaEntregas;
+      }
+
+      // Fase 2: as Entregas já registradas por Membro. Estritamente self-service —
+      // nem o Organizador registra por outro (SPEC.md §7). Não exige Edição aberta:
+      // Pendência não expira, e Entrega atrasada continua válida (SPEC.md §3).
+      match /selecoes/{membroId} {
+        allow get, list: if souMembroAtivo();
+        allow create: if souMembroAtivo()
+          && membroId == meuId()
+          && ehParticipante(membroId)
+          && request.resource.data.keys().hasOnly(['entregas'])
+          && request.resource.data.entregas.size() == 1
+          && dentroDaMeta(1)
+          && entregaValida(request.resource.data.entregas[0]);
+        // Só acrescenta: as Entregas anteriores ficam intocadas.
+        allow update: if souMembroAtivo()
+          && membroId == meuId()
+          && request.resource.data.keys().hasOnly(['entregas'])
+          && request.resource.data.entregas.size() == resource.data.entregas.size() + 1
+          && request.resource.data.entregas[0:resource.data.entregas.size()] == resource.data.entregas
+          && dentroDaMeta(request.resource.data.entregas.size())
+          && entregaValida(request.resource.data.entregas[resource.data.entregas.size()]);
+        allow delete: if false;
+      }
+
+      // Índice de unicidade do Estilo no Pool: id do documento = styleId, e só
+      // `create` é permitido, então o segundo a reivindicar o mesmo Estilo falha.
+      match /estilos-do-pool/{styleId} {
+        allow get, list: if souMembroAtivo();
+        allow create: if souMembroAtivo()
+          && edicaoAberta()
+          && ehParticipante(request.resource.data.membroId)
+          && request.resource.data.keys().hasOnly(['membroId'])
+          && (request.resource.data.membroId == meuId() || souOrganizadorAtivo());
+        allow update, delete: if false;
+      }
+    }
+  }
+}

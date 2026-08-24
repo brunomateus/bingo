@@ -3,8 +3,8 @@
     <h1>Confraria de Cervejeiros</h1>
     <p>Bem-vindo ao sistema de sorteio de estilos BJCP.</p>
     <div class="actions">
-      <router-link to="/draw" class="btn">Sorteio Atual</router-link>
-      <router-link to="/history" class="btn btn-secondary">Ver Histórico</router-link>
+      <router-link to="/sorteio" class="btn">Sorteio Atual</router-link>
+      <router-link to="/historico" class="btn btn-secondary">Ver Histórico</router-link>
     </div>
   </div>
 </template>
