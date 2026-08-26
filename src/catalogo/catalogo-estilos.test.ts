@@ -10,8 +10,15 @@ describe('catalogo-estilos', () => {
   it('não publica o texto descritivo do guia, que é copyright BJCP', () => {
     const camposPublicados = new Set(listarEstilos().flatMap((estilo) => Object.keys(estilo)))
     expect([...camposPublicados].sort()).toEqual([
-      'amargor', 'categoria', 'categoriaId', 'cor',
-      'densidadeFinal', 'densidadeOriginal', 'id', 'nome', 'teorAlcoolico'
+      'amargor',
+      'categoria',
+      'categoriaId',
+      'cor',
+      'densidadeFinal',
+      'densidadeOriginal',
+      'id',
+      'nome',
+      'teorAlcoolico'
     ])
   })
 
@@ -30,7 +37,10 @@ describe('catalogo-estilos', () => {
 
   it('mantém estilos sem faixas numéricas, como 28A Brett Beer', () => {
     expect(encontrarEstilo('28A')).toEqual({
-      id: '28A', nome: 'Brett Beer', categoria: 'American Wild Ale', categoriaId: '28'
+      id: '28A',
+      nome: 'Brett Beer',
+      categoria: 'American Wild Ale',
+      categoriaId: '28'
     })
   })
 })

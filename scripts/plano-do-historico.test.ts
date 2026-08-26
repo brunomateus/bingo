@@ -20,7 +20,22 @@ const MEMBROS = {
 }
 
 function arquivo(rodada: Record<string, unknown>) {
-  return { edicoes: [{ 2025: [{ prazo: 'setembro', estilo: '7B Altbier', participantes: ['ana@x.com', 'bia@x.com'], pendencias: [], responsavel: 'ana@x.com', ...rodada }] }] }
+  return {
+    edicoes: [
+      {
+        2025: [
+          {
+            prazo: 'setembro',
+            estilo: '7B Altbier',
+            participantes: ['ana@x.com', 'bia@x.com'],
+            pendencias: [],
+            responsavel: 'ana@x.com',
+            ...rodada
+          }
+        ]
+      }
+    ]
+  }
 }
 
 function planejar(rodada: Record<string, unknown> = {}) {
@@ -67,7 +82,16 @@ describe('planejarHistorico', () => {
   })
 
   it('ordena as rodadas da mais antiga para a mais recente', () => {
-    const duasEdicoes = { edicoes: [{ 2025: [arquivo({ prazo: 'novembro', estilo: '25B Saison' }).edicoes[0][2025][0], arquivo({}).edicoes[0][2025][0]] }] }
+    const duasEdicoes = {
+      edicoes: [
+        {
+          2025: [
+            arquivo({ prazo: 'novembro', estilo: '25B Saison' }).edicoes[0][2025][0],
+            arquivo({}).edicoes[0][2025][0]
+          ]
+        }
+      ]
+    }
     expect(planejarHistorico(duasEdicoes, CATALOGO, MEMBROS).map((rodada) => rodada.id)).toEqual([
       'historico-2025-09',
       'historico-2025-11'
@@ -92,14 +116,23 @@ describe('documentosDaRodada', () => {
     const [edicao] = documentosDaRodada(planejar())
     expect(edicao).toEqual({
       caminho: 'edicoes/historico-2025-09',
-      campos: { prazo: '2025-09-30', metaEntregas: 1, status: 'concluida', participantes: ['ana@x.com', 'bia@x.com'], fechadaEm: '2025-09-30' }
+      campos: {
+        prazo: '2025-09-30',
+        metaEntregas: 1,
+        status: 'concluida',
+        participantes: ['ana@x.com', 'bia@x.com'],
+        fechadaEm: '2025-09-30'
+      }
     })
   })
 
   it('põe só o responsável no Pool, com o índice de unicidade do Estilo', () => {
     const [, pool, indice] = documentosDaRodada(planejar())
     expect(pool).toEqual({ caminho: 'edicoes/historico-2025-09/pool/ana@x.com', campos: { styleId: '7B' } })
-    expect(indice).toEqual({ caminho: 'edicoes/historico-2025-09/estilos-do-pool/7B', campos: { membroId: 'ana@x.com' } })
+    expect(indice).toEqual({
+      caminho: 'edicoes/historico-2025-09/estilos-do-pool/7B',
+      campos: { membroId: 'ana@x.com' }
+    })
   })
 
   it('não gera Entrega para quem ficou devendo', () => {
@@ -116,11 +149,9 @@ describe('documentosDaRodada', () => {
 
 describe('emailsCitados', () => {
   it('reúne os participantes de todas as rodadas, sem repetir', () => {
-    expect(emailsCitados([planejar(), planejar({ participantes: ['caio@x.com'], responsavel: 'caio@x.com' })])).toEqual([
-      'ana@x.com',
-      'bia@x.com',
-      'caio@x.com'
-    ])
+    expect(emailsCitados([planejar(), planejar({ participantes: ['caio@x.com'], responsavel: 'caio@x.com' })])).toEqual(
+      ['ana@x.com', 'bia@x.com', 'caio@x.com']
+    )
   })
 })
 
@@ -167,7 +198,9 @@ describe('compatibilidade com os parsers do app', () => {
 
   it('o Histórico mostra a Pendência de quem não entregou, e só dela', () => {
     const edicao = paraEdicao(rodada.id, semCaminho('edicoes/historico-2025-09'))
-    const entregasPorMembro = [{ membroId: 'ana@x.com', entregas: paraEntregas('ana@x.com', semCaminho('selecoes/ana@x.com')) }]
+    const entregasPorMembro = [
+      { membroId: 'ana@x.com', entregas: paraEntregas('ana@x.com', semCaminho('selecoes/ana@x.com')) }
+    ]
     expect(pendenciasEmAberto([{ edicao, entregasPorMembro }])).toEqual([
       { membroId: 'bia@x.com', edicaoId: 'historico-2025-09', quantidade: 1 }
     ])

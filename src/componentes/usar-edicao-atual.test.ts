@@ -243,13 +243,7 @@ function usarEdicaoAtualCompartilhado(
   const consulta = new ConsultaDaEdicaoAtual(montagem.edicoes, montagem.pool, membros, montagem.entregas)
   const ciclo = new CicloDaEdicao(montagem.edicoes, montagem.pool, membros, montagem.entregas, agora)
   const registro = new RegistroDeEntregas(montagem.edicoes, montagem.pool, montagem.entregas, agora)
-  return usarEdicaoAtual(
-    consulta,
-    ciclo,
-    new SorteioDoPool(montagem.edicoes, montagem.pool),
-    registro,
-    ref(logado)
-  )
+  return usarEdicaoAtual(consulta, ciclo, new SorteioDoPool(montagem.edicoes, montagem.pool), registro, ref(logado))
 }
 
 describe('falha técnica', () => {

@@ -35,12 +35,7 @@ export class RegistroDeEntregas {
   }
 
   /** A Edição pode estar fechada: Pendência não expira (SPEC.md §3). */
-  async registrar(
-    edicaoId: EdicaoId,
-    membroId: MembroId,
-    styleId: EstiloId,
-    observation: string
-  ): Promise<Entrega> {
+  async registrar(edicaoId: EdicaoId, membroId: MembroId, styleId: EstiloId, observation: string): Promise<Entrega> {
     const edicao = await this.edicoes.buscarPorId(edicaoId)
     if (!edicao) {
       throw new ErroDeRegra(`Edição não encontrada: ${edicaoId}.`)

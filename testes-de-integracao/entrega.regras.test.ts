@@ -56,7 +56,9 @@ beforeEach(async () => {
 describe('registro de Entrega', () => {
   it('deixa o participante registrar a própria Entrega', async () => {
     const db = como('caio@exemplo.com')
-    await assertSucceeds(setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('21A')] }))
+    await assertSucceeds(
+      setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('21A')] })
+    )
   })
 
   it('qualquer Membro ativo lê as Entregas', async () => {
@@ -65,17 +67,23 @@ describe('registro de Entrega', () => {
 
   it('recusa Estilo que não está no Pool', async () => {
     const db = como('caio@exemplo.com')
-    await assertFails(setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('1A')] }))
+    await assertFails(
+      setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('1A')] })
+    )
   })
 
   it('nem o Organizador registra Entrega por outro', async () => {
     const db = como('ana@exemplo.com')
-    await assertFails(setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('21A')] }))
+    await assertFails(
+      setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'caio@exemplo.com'), { entregas: [entrega('21A')] })
+    )
   })
 
   it('recusa quem não é participante', async () => {
     const db = como('erico@exemplo.com')
-    await assertFails(setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'erico@exemplo.com'), { entregas: [entrega('21A')] }))
+    await assertFails(
+      setDoc(doc(db, 'edicoes', 'edicao-1', 'selecoes', 'erico@exemplo.com'), { entregas: [entrega('21A')] })
+    )
   })
 
   it('recusa campo extra na Entrega, como a flag `delivered` do modelo antigo', async () => {

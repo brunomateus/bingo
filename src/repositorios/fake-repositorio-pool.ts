@@ -13,7 +13,10 @@ export class FakeRepositorioPool implements RepositorioPool {
 
   constructor(inicial: Readonly<Record<EdicaoId, readonly ReivindicacaoPool[]>> = {}) {
     for (const [edicaoId, reivindicacoes] of Object.entries(inicial)) {
-      this.reivindicacoesPorEdicao.set(edicaoId, reivindicacoes.map((reivindicacao) => ({ ...reivindicacao })))
+      this.reivindicacoesPorEdicao.set(
+        edicaoId,
+        reivindicacoes.map((reivindicacao) => ({ ...reivindicacao }))
+      )
     }
   }
 

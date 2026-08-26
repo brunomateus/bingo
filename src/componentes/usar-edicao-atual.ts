@@ -124,13 +124,13 @@ export function usarEdicaoAtual(
     }),
     minhaPendencia: computed(() => {
       const id = membroLogado.value?.id
-      return id && edicao.value
-        ? pendencia(edicao.value.metaEntregas, entregasDe(entregasPorMembro.value, id))
-        : 0
+      return id && edicao.value ? pendencia(edicao.value.metaEntregas, entregasDe(entregasPorMembro.value, id)) : 0
     }),
     souPendente: computed(() => {
       const id = membroLogado.value?.id
-      return id !== undefined && edicao.value?.status === 'aberta' && !reivindicacoes.value.some((r) => r.membroId === id)
+      return id !== undefined &&
+        edicao.value?.status === 'aberta' &&
+        !reivindicacoes.value.some((r) => r.membroId === id)
         ? edicao.value.participantes.includes(id)
         : false
     }),

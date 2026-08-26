@@ -64,7 +64,9 @@ describe('AutenticacaoDeMembro', () => {
       const ouvinte = vi.fn<(resultado: ResultadoDaSessao) => void>()
       autenticacao.observarSessao(ouvinte)
       await autenticacao.entrar()
-      await vi.waitFor(() => expect(ouvinte).toHaveBeenCalledWith({ membro: expect.objectContaining({ nome: 'Ana' }), recusa: null }))
+      await vi.waitFor(() =>
+        expect(ouvinte).toHaveBeenCalledWith({ membro: expect.objectContaining({ nome: 'Ana' }), recusa: null })
+      )
     })
 
     it('emite recusa, sem membro, quando a sessão restaurada não passa mais na validação', async () => {

@@ -79,14 +79,7 @@ const estaFechada = () => props.edicao !== null && props.edicao.status !== 'aber
         </div>
         <div class="campo">
           <label class="rotulo" for="meta-nova">Entregas por participante</label>
-          <input
-            id="meta-nova"
-            v-model.number="metaDaNova"
-            type="number"
-            min="1"
-            step="1"
-            :max="maximoDeEntregas"
-          />
+          <input id="meta-nova" v-model.number="metaDaNova" type="number" min="1" step="1" :max="maximoDeEntregas" />
           <span class="limite" :class="{ 'limite-estourado': !metaValida }">
             Máximo {{ maximoDeEntregas }}: o Pool terá um Estilo por Membro ativo, e ninguém repete Estilo.
           </span>
@@ -108,9 +101,7 @@ const estaFechada = () => props.edicao !== null && props.edicao.status !== 'aber
         <span class="rotulo">Prazo</span>
         <div v-if="!editandoPrazo" class="prazo">
           <strong>{{ edicao.prazo }}</strong>
-          <button v-if="souOrganizador" type="button" class="botao-link" @click="editandoPrazo = true">
-            estender
-          </button>
+          <button v-if="souOrganizador" type="button" class="botao-link" @click="editandoPrazo = true">estender</button>
         </div>
         <div v-else class="prazo-edicao">
           <input v-model="prazoEstendido" type="date" />
@@ -119,9 +110,7 @@ const estaFechada = () => props.edicao !== null && props.edicao.status !== 'aber
       </div>
 
       <template v-if="souOrganizador">
-        <button type="button" :disabled="!temPendentes" @click="emit('forcarAvanco')">
-          Forçar avanço da Fase 1
-        </button>
+        <button type="button" :disabled="!temPendentes" @click="emit('forcarAvanco')">Forçar avanço da Fase 1</button>
         <button type="button" class="botao-perigo" @click="emit('fechar')">Fechar Edição</button>
       </template>
     </template>

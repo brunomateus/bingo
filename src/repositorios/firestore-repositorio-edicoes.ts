@@ -90,13 +90,19 @@ export class FirestoreRepositorioEdicoes implements RepositorioEdicoes {
 /** Converte o documento cru numa `Edicao`, falhando alto se o schema não bater. */
 export function paraEdicao(id: EdicaoId, dados: DocumentData): Edicao {
   if (typeof dados.status !== 'string' || !STATUS.includes(dados.status as StatusEdicao)) {
-    throw new Error(`edicoes/${id} tem status inválido: ${JSON.stringify(dados.status)}. Esperado um de ${STATUS.join(' | ')}.`)
+    throw new Error(
+      `edicoes/${id} tem status inválido: ${JSON.stringify(dados.status)}. Esperado um de ${STATUS.join(' | ')}.`
+    )
   }
   if (!Number.isInteger(dados.metaEntregas) || dados.metaEntregas < 1) {
-    throw new Error(`edicoes/${id} tem metaEntregas inválida: ${JSON.stringify(dados.metaEntregas)}. Esperado inteiro >= 1.`)
+    throw new Error(
+      `edicoes/${id} tem metaEntregas inválida: ${JSON.stringify(dados.metaEntregas)}. Esperado inteiro >= 1.`
+    )
   }
   if (!Array.isArray(dados.participantes)) {
-    throw new Error(`edicoes/${id} tem participantes inválidos: ${JSON.stringify(dados.participantes)}. Esperado uma lista de ids.`)
+    throw new Error(
+      `edicoes/${id} tem participantes inválidos: ${JSON.stringify(dados.participantes)}. Esperado uma lista de ids.`
+    )
   }
   return {
     id,

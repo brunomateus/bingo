@@ -36,7 +36,9 @@ describe('SorteioDoPool', () => {
 
   it('recusa a segunda reivindicação do mesmo participante', async () => {
     await sorteio.reivindicar('edicao-1', 'ana@exemplo.com', '21A')
-    await expect(sorteio.reivindicar('edicao-1', 'ana@exemplo.com', '1A')).rejects.toThrow('já reivindicou o Estilo 21A')
+    await expect(sorteio.reivindicar('edicao-1', 'ana@exemplo.com', '1A')).rejects.toThrow(
+      'já reivindicou o Estilo 21A'
+    )
   })
 
   it('recusa quem não é participante da Edição', async () => {

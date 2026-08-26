@@ -6,13 +6,28 @@ const META_DO_FORMATO_ANTIGO = 1
 
 // O JSON de origem grafa os meses por extenso, com acento e um typo em 2024.
 const MESES = {
-  janeiro: 1, fevereiro: 2, fevereio: 2, marco: 3, abril: 4, maio: 5, junho: 6,
-  julho: 7, agosto: 8, setembro: 9, outubro: 10, novembro: 11, dezembro: 12
+  janeiro: 1,
+  fevereiro: 2,
+  fevereio: 2,
+  marco: 3,
+  abril: 4,
+  maio: 5,
+  junho: 6,
+  julho: 7,
+  agosto: 8,
+  setembro: 9,
+  outubro: 10,
+  novembro: 11,
+  dezembro: 12
 }
 
 /** Remove acentos para casar "março" com a chave `marco`. */
 function semAcento(texto) {
-  return texto.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  return texto
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
 }
 
 function numeroDoMes(nome) {
@@ -37,7 +52,9 @@ export function ultimoDiaDoMes(ano, mes) {
 /** Achata `{ edicoes: [{ "2023": [...] }] }` numa lista com o ano em cada item. */
 export function achatarEdicoes(arquivo) {
   if (!Array.isArray(arquivo?.edicoes)) {
-    throw new Error(`Arquivo sem a lista "edicoes": ${JSON.stringify(arquivo)?.slice(0, 120)}. Esperado { "edicoes": [ { "2023": [...] } ] }.`)
+    throw new Error(
+      `Arquivo sem a lista "edicoes": ${JSON.stringify(arquivo)?.slice(0, 120)}. Esperado { "edicoes": [ { "2023": [...] } ] }.`
+    )
   }
   return arquivo.edicoes.flatMap((bloco) =>
     Object.entries(bloco).flatMap(([ano, rodadas]) => rodadas.map((rodada) => ({ ano: Number(ano), ...rodada })))
@@ -95,7 +112,9 @@ export function emailsCitados(rodadas) {
 
 /** Rodadas em ordem cronológica, com Estilos e e-mails já validados. */
 export function planejarHistorico(arquivo, catalogo, membros) {
-  const rodadas = achatarEdicoes(arquivo).map(planejarRodada).sort((uma, outra) => uma.data.localeCompare(outra.data))
+  const rodadas = achatarEdicoes(arquivo)
+    .map(planejarRodada)
+    .sort((uma, outra) => uma.data.localeCompare(outra.data))
   for (const rodada of rodadas) {
     validarRodada(rodada, catalogo, membros)
   }
@@ -104,16 +123,22 @@ export function planejarHistorico(arquivo, catalogo, membros) {
 
 function validarRodada(rodada, catalogo, membros) {
   if (!catalogo.some((estilo) => estilo.id === rodada.styleId)) {
-    throw new Error(`Estilo fora do catálogo BJCP em ${rodada.rotulo}: ${JSON.stringify(rodada.estilo)} (id ${rodada.styleId}). Esperado um id de src/assets/data/bjcp-styles.json.`)
+    throw new Error(
+      `Estilo fora do catálogo BJCP em ${rodada.rotulo}: ${JSON.stringify(rodada.estilo)} (id ${rodada.styleId}). Esperado um id de src/assets/data/bjcp-styles.json.`
+    )
   }
   for (const membro of [...rodada.participantes, ...rodada.pendentes]) {
     if (!membros[membro]) {
-      throw new Error(`E-mail sem cadastro no arquivo de Membros, citado em ${rodada.rotulo}: ${membro}. Esperado uma entrada { "${membro}": { "nome": "...", "status": "ativo" } }.`)
+      throw new Error(
+        `E-mail sem cadastro no arquivo de Membros, citado em ${rodada.rotulo}: ${membro}. Esperado uma entrada { "${membro}": { "nome": "...", "status": "ativo" } }.`
+      )
     }
   }
   const forasteiro = rodada.pendentes.find((membro) => !rodada.participantes.includes(membro))
   if (forasteiro) {
-    throw new Error(`Pendência de quem não participou em ${rodada.rotulo}: ${forasteiro}. Esperado um e-mail presente em "participantes".`)
+    throw new Error(
+      `Pendência de quem não participou em ${rodada.rotulo}: ${forasteiro}. Esperado um e-mail presente em "participantes".`
+    )
   }
 }
 
@@ -149,10 +174,14 @@ function documentoDeEntrega(rodada, membro) {
 /** Documento de `membros/{id}`, sempre como Membro comum: papel é decisão do app. */
 export function documentoDeMembro(email, cadastro) {
   if (typeof cadastro?.nome !== 'string' || cadastro.nome.trim() === '') {
-    throw new Error(`Membro ${email} sem nome no arquivo de Membros: ${JSON.stringify(cadastro)}. Esperado { "nome": "...", "status": "ativo" | "inativo" }.`)
+    throw new Error(
+      `Membro ${email} sem nome no arquivo de Membros: ${JSON.stringify(cadastro)}. Esperado { "nome": "...", "status": "ativo" | "inativo" }.`
+    )
   }
   if (cadastro.status !== 'ativo' && cadastro.status !== 'inativo') {
-    throw new Error(`Membro ${email} com status inválido: ${JSON.stringify(cadastro.status)}. Esperado "ativo" ou "inativo".`)
+    throw new Error(
+      `Membro ${email} com status inválido: ${JSON.stringify(cadastro.status)}. Esperado "ativo" ou "inativo".`
+    )
   }
   return {
     caminho: `membros/${email}`,
