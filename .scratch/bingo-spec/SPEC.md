@@ -59,13 +59,13 @@ O conjunto de Edições concluídas (`status: concluida`), consultável como:
 - **Lista cronológica** — mais recente primeiro; cada Edição mostra a data de fechamento e os Estilos efetivamente entregues nela.
 - **Produção por Membro** — quais Estilos cada Membro já entregou, incluindo Membros inativos (Histórico preserva o dado de quem foi desativado).
 - **Ranking por Estilo** — quantas vezes cada Estilo já foi **entregue** (não "escolhido" — não há escolha antecipada).
-- **Pendências** — uma linha por (Membro, Edição) com a quantidade de Entregas que faltam; nunca um Estilo específico. Inclui Edições já fechadas e a Edição em curso (Pendência existe independente de a Edição de origem estar fechada).
+- **Pendências** — uma linha por Membro devedor, com o total de Entregas que faltam e o detalhe por Edição; nunca um Estilo específico. Inclui Edições já fechadas e a Edição em curso (Pendência existe independente de a Edição de origem estar fechada). O agrupamento por Membro veio depois da importação do Histórico: com doze Edições anteriores, a linha por (Membro, Edição) repetia o mesmo Membro em cada Edição que ele devia.
 
 Agregações calculadas no cliente a partir de queries simples do Firestore, sem pré-computação no servidor (volume pequeno esperado).
 
 ### UI — Histórico
 
-Abas por categoria: **Edições**, **Por Membro**, **Por Estilo**, **Pendências**. Cada linha de Edição mostra os Estilos entregues como chips (com `×N` quando mais de um Membro entregou o mesmo Estilo). A aba Pendências lista quantidade devida por (Membro, Edição), com uma nota explicando que o Estilo só é conhecido no ato da Entrega.
+Abas por categoria: **Edições**, **Por Membro**, **Por Estilo**, **Pendências**. Cada linha de Edição mostra os Estilos entregues como chips (com `×N` quando mais de um Membro entregou o mesmo Estilo). A aba Pendências traz cada Membro devedor uma vez, com o total na coluna "Deve" e as Edições devedoras listadas ao lado (`×N` em cada), mais uma nota explicando que o Estilo só é conhecido no ato da Entrega. Como uma Entrega quita uma Edição específica, o registro de Entrega atrasada pede a Edição a quitar — campo que só aparece para quem deve em mais de uma.
 
 *Protótipo de referência: branch `prototype/historico` (3 variantes — abas por categoria, relatório em rolagem, master-detail por membro; vencedora = abas por categoria).*
 
