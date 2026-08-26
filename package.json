@@ -13,6 +13,7 @@
     "emulador": "firebase emulators:start --project demo-bingo",
     "test:unit": "vitest run",
     "criar-organizador": "node scripts/criar-organizador.mjs",
+    "importar-historico": "node scripts/importar-historico.mjs",
     "test:integracao": "firebase emulators:exec --only firestore --project demo-bingo-testes \"vitest run --config vitest.integracao.config.ts\""
   },
   "dependencies": {
