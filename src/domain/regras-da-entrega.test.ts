@@ -2,13 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Edicao } from './edicao'
 import type { Entrega, EntregasDoMembro, ReivindicacaoPool } from './entrega'
 import type { Estilo } from './estilo'
-import {
-  entregasDe,
-  estilosEntregaveis,
-  pendencia,
-  todosCumpriramAMeta,
-  validarEntrega
-} from './regras-da-entrega'
+import { entregasDe, estilosEntregaveis, pendencia, todosCumpriramAMeta, validarEntrega } from './regras-da-entrega'
 
 const EDICAO: Edicao = {
   id: 'edicao-1',

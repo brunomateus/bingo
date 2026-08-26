@@ -12,7 +12,9 @@ defineProps<{ edicoes: readonly EdicaoComEntregas[] }>()
     <li v-for="item in edicoes" :key="item.edicao.id" class="linha">
       <div class="cabecalho">
         <strong>Encerrada em {{ dataCurta(item.edicao.fechadaEm ?? item.edicao.prazo) }}</strong>
-        <span class="meta">{{ item.edicao.participantes.length }} participantes · meta {{ item.edicao.metaEntregas }}</span>
+        <span class="meta"
+          >{{ item.edicao.participantes.length }} participantes · meta {{ item.edicao.metaEntregas }}</span
+        >
       </div>
       <div class="chips">
         <ChipDeEstilo

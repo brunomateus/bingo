@@ -5,9 +5,7 @@ import { membroIdDoEmail } from '../domain/membro-id'
 import type { RepositorioMembros } from '../repositorios/repositorio-membros'
 
 /** Resultado de uma revalidação de sessão: o Membro autenticado ou o motivo da recusa. */
-export type ResultadoDaSessao =
-  | { membro: Membro; recusa: null }
-  | { membro: null; recusa: ErroDeRegra | null }
+export type ResultadoDaSessao = { membro: Membro; recusa: null } | { membro: null; recusa: ErroDeRegra | null }
 
 /**
  * Porteiro do login (SPEC.md §2): só entra quem tem conta Google cujo e-mail

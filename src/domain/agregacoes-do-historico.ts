@@ -34,6 +34,13 @@ export interface LinhaDePendencia {
   quantidade: number
 }
 
+/** Tudo que um Membro deve, somado, com o detalhe de cada Edição devedora. */
+export interface PendenciasDoMembro {
+  membroId: MembroId
+  total: number
+  porEdicao: LinhaDePendencia[]
+}
+
 /** Edições da mais recente para a mais antiga, pela data de fechamento (SPEC.md §5). */
 export function ordenarPorFechamento(historico: readonly EdicaoComEntregas[]): EdicaoComEntregas[] {
   return [...historico].sort((uma, outra) => (outra.edicao.fechadaEm ?? '').localeCompare(uma.edicao.fechadaEm ?? ''))
@@ -97,6 +104,24 @@ export function pendenciasEmAberto(historico: readonly EdicaoComEntregas[]): Lin
     }
   }
   return linhas
+}
+
+/**
+ * As Pendências de cada Membro numa linha só: quem deve em várias Edições
+ * aparece uma vez, com o total e o detalhe por Edição. Preserva a ordem
+ * recebida, tanto entre Membros quanto entre as Edições de um Membro.
+ *
+ * @example agruparPendenciasPorMembro(linhas) // [{ membroId: 'ana@x.com', total: 3, porEdicao: [...] }]
+ */
+export function agruparPendenciasPorMembro(linhas: readonly LinhaDePendencia[]): PendenciasDoMembro[] {
+  const porMembro = new Map<MembroId, PendenciasDoMembro>()
+  for (const linha of linhas) {
+    const acumulada = porMembro.get(linha.membroId) ?? { membroId: linha.membroId, total: 0, porEdicao: [] }
+    acumulada.total += linha.quantidade
+    acumulada.porEdicao.push(linha)
+    porMembro.set(linha.membroId, acumulada)
+  }
+  return [...porMembro.values()]
 }
 
 /** Os Estilos de um Membro com quantas vezes ele entregou cada um, no Histórico todo. */

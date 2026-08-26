@@ -62,5 +62,4 @@ export class ConsultaDaEdicaoAtual {
   async recarregarEntregas(edicaoId: string): Promise<EntregasDoMembro[]> {
     return await this.entregas.listarPorEdicao(edicaoId)
   }
-
 }

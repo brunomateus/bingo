@@ -146,9 +146,13 @@ describe('Fase 1: pool', () => {
 describe('unicidade do Estilo no Pool', () => {
   it('recusa o segundo participante que tenta o mesmo Estilo', async () => {
     const caio = como('caio@exemplo.com')
-    await assertSucceeds(setDoc(doc(caio, 'edicoes', 'edicao-1', 'estilos-do-pool', '21A'), { membroId: 'caio@exemplo.com' }))
+    await assertSucceeds(
+      setDoc(doc(caio, 'edicoes', 'edicao-1', 'estilos-do-pool', '21A'), { membroId: 'caio@exemplo.com' })
+    )
     const ana = como('ana@exemplo.com')
-    await assertFails(setDoc(doc(ana, 'edicoes', 'edicao-1', 'estilos-do-pool', '21A'), { membroId: 'ana@exemplo.com' }))
+    await assertFails(
+      setDoc(doc(ana, 'edicoes', 'edicao-1', 'estilos-do-pool', '21A'), { membroId: 'ana@exemplo.com' })
+    )
   })
 
   it('impede registrar o índice em nome de outro', async () => {

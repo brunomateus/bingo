@@ -158,7 +158,9 @@ describe('validarReivindicacao', () => {
   })
 
   it('recusa segunda reivindicação do mesmo Membro, lembrando o Estilo dele', () => {
-    expect(() => validarReivindicacao(edicao(), POOL_COMPLETO, 'ana@x.com', '1A')).toThrow('já reivindicou o Estilo 21A')
+    expect(() => validarReivindicacao(edicao(), POOL_COMPLETO, 'ana@x.com', '1A')).toThrow(
+      'já reivindicou o Estilo 21A'
+    )
   })
 
   it('recusa Estilo que outro participante já levou', () => {

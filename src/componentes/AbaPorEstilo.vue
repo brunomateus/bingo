@@ -28,7 +28,9 @@ function categoriaDoEstilo(styleId: EstiloId): string {
     </thead>
     <tbody>
       <tr v-for="contagem in ranking" :key="contagem.styleId">
-        <td><strong>{{ contagem.styleId }}</strong> {{ nomeDoEstilo(contagem.styleId) }}</td>
+        <td>
+          <strong>{{ contagem.styleId }}</strong> {{ nomeDoEstilo(contagem.styleId) }}
+        </td>
         <td class="categoria">{{ categoriaDoEstilo(contagem.styleId) }}</td>
         <td class="numero">{{ contagem.quantidade }}</td>
       </tr>

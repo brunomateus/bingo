@@ -18,7 +18,10 @@ export class FakeRepositorioEntregas implements RepositorioEntregas {
     for (const [edicaoId, porMembro] of Object.entries(inicial)) {
       const mapa: EntregasPorMembro = new Map()
       for (const [membroId, entregas] of Object.entries(porMembro)) {
-        mapa.set(membroId, entregas.map((entrega) => ({ ...entrega })))
+        mapa.set(
+          membroId,
+          entregas.map((entrega) => ({ ...entrega }))
+        )
       }
       this.porEdicao.set(edicaoId, mapa)
     }

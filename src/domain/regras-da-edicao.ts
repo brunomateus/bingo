@@ -19,10 +19,7 @@ export function faseDaEdicao(edicao: Edicao, reivindicacoes: readonly Reivindica
 }
 
 /** Participantes que ainda não reivindicaram Estilo — os alvos do "forçar avanço". */
-export function participantesPendentes(
-  edicao: Edicao,
-  reivindicacoes: readonly ReivindicacaoPool[]
-): MembroId[] {
+export function participantesPendentes(edicao: Edicao, reivindicacoes: readonly ReivindicacaoPool[]): MembroId[] {
   const jaReivindicaram = new Set(reivindicacoes.map((reivindicacao) => reivindicacao.membroId))
   return edicao.participantes.filter((participante) => !jaReivindicaram.has(participante))
 }

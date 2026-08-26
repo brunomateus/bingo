@@ -45,7 +45,7 @@ Etapa da Edição, após a Fase 1: período em que cada membro cumpre seu compro
 O registro de um membro cumprindo parte do seu compromisso de Entregas numa Edição. No ato do registro, o membro escolhe o Estilo (um dos Estilos do Pool da Edição, sem repetir um que ele mesmo já entregou nela), além de uma observação em texto livre (hoje usada para registrar o local da entrega) e o instante da entrega. Pode ser registrada a qualquer momento, sem prazo — mesmo depois que a Edição de origem já fechou e uma nova Edição está em andamento.
 
 **Pendência**:
-A diferença entre a meta de Entregas de um Membro numa Edição (padrão 3, definida pelo Organizador ao abrir a Edição) e as Entregas que ele já registrou nela, em qualquer Edição (fechada ou não). Sem Estilo determinado até a Entrega ser efetivamente registrada — o Membro escolhe o Estilo (do Pool da Edição, sem repetir um que ele mesmo já entregou) no ato de cada Entrega, não antecipadamente. Consultável a qualquer momento como agregação por Membro e por Edição, independente de quando a Edição de origem fechou.
+A diferença entre a meta de Entregas de um Membro numa Edição (padrão 3, definida pelo Organizador ao abrir a Edição) e as Entregas que ele já registrou nela, em qualquer Edição (fechada ou não). Sem Estilo determinado até a Entrega ser efetivamente registrada — o Membro escolhe o Estilo (do Pool da Edição, sem repetir um que ele mesmo já entregou) no ato de cada Entrega, não antecipadamente. Consultável a qualquer momento, agregada por Membro (o total que ele deve) e detalhada por Edição, independente de quando a Edição de origem fechou.
 _Avoid_: Débito, atraso
 
 **Histórico**:

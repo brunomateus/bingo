@@ -33,3 +33,9 @@ ui-debug.log
 
 # Worktrees e estado local do Claude Code
 .claude/
+
+# Chaves de conta de serviço e nomes reais dos Membros: dados pessoais, ficam fora do repo
+*-service-account*.json
+firebase-adminsdk-*.json
+historico-membros.json
+edicoes_anteriores.json

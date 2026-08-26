@@ -1,7 +1,6 @@
 import type { Membro, MembroId } from './membro'
 
-const AVISO_ULTIMO_ORGANIZADOR =
-  'Último Organizador ativo: promova outro Membro antes de rebaixar ou desativar este.'
+const AVISO_ULTIMO_ORGANIZADOR = 'Último Organizador ativo: promova outro Membro antes de rebaixar ou desativar este.'
 
 /** Organizadores ativos da confraria — quem pode gerir Membros e Edições. */
 export function organizadoresAtivos(membros: readonly Membro[]): Membro[] {

@@ -1,0 +1,15 @@
+node_modules
+dist
+*.log
+package-lock.json
+# Documentos escritos à mão (SPEC, glossário, ADRs): o reflow do Prettier
+# troca ênfase e reescreve tabelas sem ganho nenhum.
+*.md
+
+# Trecho de redirecionamento copiado do spa-github-pages (rafgraph): mexer nele
+# só se justifica seguindo o upstream, não por reflow.
+index.html
+public/404.html
+
+# Gerado por `npm run estilos:build` — não editar nem reformatar.
+src/assets/data/bjcp-styles.json

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  agruparPendenciasPorMembro,
   contarEstilos,
   contarEstilosDeProducao,
   ordenarPorFechamento,
@@ -148,7 +149,33 @@ describe('contarEstilosDeProducao', () => {
   })
 
   it('marca o Estilo repetido pelo mesmo Membro em Edições diferentes', () => {
-    const repetido = producaoPorMembro([JULHO, { ...AGOSTO, entregasPorMembro: [{ membroId: 'ana@x.com', entregas: [entrega('21A')] }] }])
+    const repetido = producaoPorMembro([
+      JULHO,
+      { ...AGOSTO, entregasPorMembro: [{ membroId: 'ana@x.com', entregas: [entrega('21A')] }] }
+    ])
     expect(contarEstilosDeProducao(repetido[0])[0]).toEqual({ styleId: '21A', quantidade: 2 })
+  })
+})
+
+describe('agruparPendenciasPorMembro', () => {
+  const DE_ANA = { membroId: 'ana@x.com', edicaoId: 'setembro', quantidade: 2 }
+  const DE_ANA_ATRASADA = { membroId: 'ana@x.com', edicaoId: 'julho', quantidade: 1 }
+  const DE_CAIO = { membroId: 'caio@x.com', edicaoId: 'julho', quantidade: 3 }
+
+  it('junta as Edições de um mesmo Membro numa entrada só, somando o total', () => {
+    expect(agruparPendenciasPorMembro([DE_ANA, DE_ANA_ATRASADA])).toEqual([
+      { membroId: 'ana@x.com', total: 3, porEdicao: [DE_ANA, DE_ANA_ATRASADA] }
+    ])
+  })
+
+  it('preserva a ordem em que os Membros aparecem', () => {
+    expect(agruparPendenciasPorMembro([DE_CAIO, DE_ANA]).map((devedor) => devedor.membroId)).toEqual([
+      'caio@x.com',
+      'ana@x.com'
+    ])
+  })
+
+  it('devolve lista vazia quando ninguém deve', () => {
+    expect(agruparPendenciasPorMembro([])).toEqual([])
   })
 })

@@ -61,7 +61,10 @@ describe('FirestoreRepositorioEntregas no emulador', () => {
     const entregas = repositorio()
     await entregas.registrar('edicao-1', 'caio@exemplo.com', entrega('21A'))
     await entregas.registrar('edicao-1', 'caio@exemplo.com', entrega('13C'))
-    expect((await entregas.buscarDoMembro('edicao-1', 'caio@exemplo.com')).map((e) => e.styleId)).toEqual(['21A', '13C'])
+    expect((await entregas.buscarDoMembro('edicao-1', 'caio@exemplo.com')).map((e) => e.styleId)).toEqual([
+      '21A',
+      '13C'
+    ])
   })
 
   it('recusa o mesmo Estilo duas vezes, mesmo sem checagem prévia no cliente', async () => {
