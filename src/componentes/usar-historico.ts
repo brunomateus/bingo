@@ -3,10 +3,11 @@ import { listarEstilos } from '../catalogo/catalogo-estilos'
 import type { ConsultaDoHistorico, Historico } from '../casos-uso/consulta-do-historico'
 import type { RegistroDeEntregas } from '../casos-uso/registro-de-entregas'
 import {
+  agruparPendenciasPorMembro,
   contarEstilosDeProducao,
   type ContagemDeEstilo,
   type EdicaoComEntregas,
-  type LinhaDePendencia,
+  type PendenciasDoMembro,
   type ProducaoDeMembro
 } from '../domain/agregacoes-do-historico'
 import type { EdicaoId } from '../domain/edicao'
@@ -26,7 +27,8 @@ export interface HistoricoNaTela {
   edicoes: ComputedRef<EdicaoComEntregas[]>
   producao: ComputedRef<ProducaoDeMembro[]>
   ranking: ComputedRef<ContagemDeEstilo[]>
-  pendencias: ComputedRef<LinhaDePendencia[]>
+  /** Uma entrada por Membro devedor, com o detalhe das Edições que ele deve. */
+  pendencias: ComputedRef<PendenciasDoMembro[]>
   nomeDe(membroId: MembroId): string
   rotuloDe(edicaoId: EdicaoId): string
   estilosDe(producao: ProducaoDeMembro): ContagemDeEstilo[]
@@ -90,14 +92,18 @@ export function usarHistorico(
     erro,
     edicoes: computed(() => dados.value.edicoes),
     producao: computed(() =>
-      [...dados.value.producao].sort((uma, outra) => nomeDe(uma.membroId).localeCompare(nomeDe(outra.membroId), 'pt-BR'))
+      [...dados.value.producao].sort((uma, outra) =>
+        nomeDe(uma.membroId).localeCompare(nomeDe(outra.membroId), 'pt-BR')
+      )
     ),
     ranking: computed(() => dados.value.ranking),
     pendencias: computed(() =>
-      [...dados.value.pendencias].sort(
-        (uma, outra) =>
-          nomeDe(uma.membroId).localeCompare(nomeDe(outra.membroId), 'pt-BR') ||
-          compararEdicoes(uma.edicaoId, outra.edicaoId)
+      agruparPendenciasPorMembro(
+        [...dados.value.pendencias].sort(
+          (uma, outra) =>
+            nomeDe(uma.membroId).localeCompare(nomeDe(outra.membroId), 'pt-BR') ||
+            compararEdicoes(uma.edicaoId, outra.edicaoId)
+        )
       )
     ),
     nomeDe,

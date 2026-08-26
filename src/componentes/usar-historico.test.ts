@@ -85,11 +85,17 @@ describe('usarHistorico', () => {
     expect(historico.nomeDe('sumido@x.com')).toBe('sumido@x.com')
   })
 
-  it('lista Pendências por Membro, com a Edição em curso antes das fechadas', () => {
+  it('traz cada Membro devedor uma vez só, com o total e a Edição em curso antes das fechadas', () => {
     expect(historico.pendencias.value).toEqual([
-      { membroId: 'ana@x.com', edicaoId: 'setembro', quantidade: 2 },
-      { membroId: 'ana@x.com', edicaoId: 'julho', quantidade: 1 },
-      { membroId: 'caio@x.com', edicaoId: 'setembro', quantidade: 2 }
+      {
+        membroId: 'ana@x.com',
+        total: 3,
+        porEdicao: [
+          { membroId: 'ana@x.com', edicaoId: 'setembro', quantidade: 2 },
+          { membroId: 'ana@x.com', edicaoId: 'julho', quantidade: 1 }
+        ]
+      },
+      { membroId: 'caio@x.com', total: 2, porEdicao: [{ membroId: 'caio@x.com', edicaoId: 'setembro', quantidade: 2 }] }
     ])
   })
 
@@ -105,7 +111,9 @@ describe('usarHistorico', () => {
 
     it('quita a Pendência de uma Edição já encerrada e some com a linha', async () => {
       await historico.quitarEntrega('julho', '13C', 'entregue atrasado')
-      expect(historico.pendencias.value.some((linha) => linha.edicaoId === 'julho')).toBe(false)
+      const daAna = historico.pendencias.value.find((devedor) => devedor.membroId === 'ana@x.com')!
+      expect(daAna.total).toBe(2)
+      expect(daAna.porEdicao.some((linha) => linha.edicaoId === 'julho')).toBe(false)
       expect(historico.ranking.value.find((item) => item.styleId === '13C')?.quantidade).toBe(2)
     })
 

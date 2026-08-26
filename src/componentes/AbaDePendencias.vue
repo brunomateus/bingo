@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { LinhaDePendencia } from '../domain/agregacoes-do-historico'
+import type { PendenciasDoMembro } from '../domain/agregacoes-do-historico'
 import type { EdicaoId } from '../domain/edicao'
 import type { Estilo, EstiloId } from '../domain/estilo'
 import type { MembroId } from '../domain/membro'
-import RegistroDeEntrega from './RegistroDeEntrega.vue'
+import QuitacaoDePendencia from './QuitacaoDePendencia.vue'
 
 defineProps<{
-  pendencias: readonly LinhaDePendencia[]
+  pendencias: readonly PendenciasDoMembro[]
   nomeDe: (membroId: MembroId) => string
   rotuloDe: (edicaoId: EdicaoId) => string
   ehMinha: (membroId: MembroId) => boolean
@@ -16,8 +16,8 @@ defineProps<{
 
 const emit = defineEmits<{ quitar: [edicaoId: EdicaoId, styleId: EstiloId, observation: string] }>()
 
-// Uma linha por vez em modo de registro, para a tabela não virar um formulário só.
-const quitando = ref<EdicaoId | null>(null)
+// Um Membro por vez em modo de registro, para a tabela não virar um formulário só.
+const quitando = ref<MembroId | null>(null)
 
 function quitar(edicaoId: EdicaoId, styleId: EstiloId, observation: string): void {
   emit('quitar', edicaoId, styleId, observation)
@@ -27,43 +27,50 @@ function quitar(edicaoId: EdicaoId, styleId: EstiloId, observation: string): voi
 
 <template>
   <p class="nota">
-    A Pendência é uma quantidade, não um Estilo: o Estilo de cada Entrega só é
-    escolhido no ato de registrá-la. Entregas atrasadas continuam valendo, mesmo
-    com a Edição já encerrada.
+    A Pendência é uma quantidade, não um Estilo: o Estilo de cada Entrega só é escolhido no ato de registrá-la. Entregas
+    atrasadas continuam valendo, mesmo com a Edição já encerrada.
   </p>
   <p v-if="!pendencias.length" class="vazio">Ninguém deve Entregas. Confraria em dia.</p>
   <table v-else class="pendencias">
     <thead>
       <tr>
         <th scope="col">Membro</th>
-        <th scope="col">Edição</th>
+        <th scope="col">Edições</th>
         <th scope="col" class="numero">Deve</th>
         <th scope="col"><span class="oculto">Ações</span></th>
       </tr>
     </thead>
     <tbody>
-      <template v-for="linha in pendencias" :key="`${linha.membroId}-${linha.edicaoId}`">
+      <template v-for="devedor in pendencias" :key="devedor.membroId">
         <tr>
-          <td>{{ nomeDe(linha.membroId) }}</td>
-          <td class="edicao">{{ rotuloDe(linha.edicaoId) }}</td>
-          <td class="numero">{{ linha.quantidade }}</td>
+          <td>{{ nomeDe(devedor.membroId) }}</td>
+          <td class="edicoes">
+            <ul>
+              <li v-for="linha in devedor.porEdicao" :key="linha.edicaoId">
+                {{ rotuloDe(linha.edicaoId) }}
+                <span class="quantidade">×{{ linha.quantidade }}</span>
+              </li>
+            </ul>
+          </td>
+          <td class="numero">{{ devedor.total }}</td>
           <td class="acao">
             <button
-              v-if="ehMinha(linha.membroId)"
+              v-if="ehMinha(devedor.membroId)"
               type="button"
               class="botao-link"
-              @click="quitando = quitando === linha.edicaoId ? null : linha.edicaoId"
+              @click="quitando = quitando === devedor.membroId ? null : devedor.membroId"
             >
-              {{ quitando === linha.edicaoId ? 'Cancelar' : 'Registrar Entrega' }}
+              {{ quitando === devedor.membroId ? 'Cancelar' : 'Registrar Entrega' }}
             </button>
           </td>
         </tr>
-        <tr v-if="quitando === linha.edicaoId">
+        <tr v-if="quitando === devedor.membroId">
           <td colspan="4">
-            <RegistroDeEntrega
-              :estilos-entregaveis="estilosEntregaveisEm(linha.edicaoId)"
-              :pendencia="linha.quantidade"
-              @registrar="(styleId, observation) => quitar(linha.edicaoId, styleId, observation)"
+            <QuitacaoDePendencia
+              :devidas="devedor.porEdicao"
+              :rotulo-de="rotuloDe"
+              :estilos-entregaveis-em="estilosEntregaveisEm"
+              @quitar="quitar"
             />
           </td>
         </tr>
@@ -102,9 +109,20 @@ th {
 tbody tr:last-child td {
   border-bottom: none;
 }
-.edicao {
+.edicoes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   font-size: 0.85rem;
   opacity: 0.8;
+}
+.quantidade {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  opacity: 0.9;
 }
 .numero {
   text-align: right;
