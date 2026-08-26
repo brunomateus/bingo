@@ -1,0 +1,6 @@
+node_modules
+dist
+*.log
+package-lock.json
+# Gerado por `npm run estilos:build` — não editar nem reformatar.
+src/assets/data/bjcp-styles.json

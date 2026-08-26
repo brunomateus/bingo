@@ -5,9 +5,20 @@
 import { createSign } from 'node:crypto'
 
 const ESCOPO = 'https://www.googleapis.com/auth/datastore'
-const RAIZ = 'https://firestore.googleapis.com/v1'
+const RAIZ_REAL = 'https://firestore.googleapis.com/v1'
 // O Firestore recusa commits acima de 500 escritas.
 const MAXIMO_POR_COMMIT = 400
+
+/**
+ * A raiz da API: o emulador fala o mesmo REST, só muda o host. Lida a cada
+ * chamada (e não uma vez no import) para o teste conseguir alternar os dois.
+ *
+ * @example raizDaApi() // 'http://127.0.0.1:8080/v1' com FIRESTORE_EMULATOR_HOST setado
+ */
+export function raizDaApi() {
+  const emulador = process.env.FIRESTORE_EMULATOR_HOST
+  return emulador ? `http://${emulador}/v1` : RAIZ_REAL
+}
 
 /** Converte um valor JS na representação tipada que a API REST exige. */
 export function paraValorFirestore(valor) {
@@ -17,7 +28,9 @@ export function paraValorFirestore(valor) {
   if (Number.isInteger(valor)) return { integerValue: String(valor) }
   if (Array.isArray(valor)) return { arrayValue: { values: valor.map(paraValorFirestore) } }
   if (typeof valor === 'object') return { mapValue: { fields: paraCamposFirestore(valor) } }
-  throw new Error(`Valor não suportado na conversão para Firestore: ${JSON.stringify(valor)}. Esperado texto, inteiro, booleano, null, lista ou objeto.`)
+  throw new Error(
+    `Valor não suportado na conversão para Firestore: ${JSON.stringify(valor)}. Esperado texto, inteiro, booleano, null, lista ou objeto.`
+  )
 }
 
 /** Converte um objeto plano no mapa `fields` da API REST. */
@@ -53,7 +66,9 @@ export async function obterTokenDeAcesso(chave) {
   })
   const corpo = await resposta.json()
   if (!resposta.ok) {
-    throw new Error(`Falha ao obter token para ${chave.client_email}: HTTP ${resposta.status} ${JSON.stringify(corpo)}. Esperado 200 — a chave é válida e a conta tem acesso ao Firestore?`)
+    throw new Error(
+      `Falha ao obter token para ${chave.client_email}: HTTP ${resposta.status} ${JSON.stringify(corpo)}. Esperado 200 — a chave é válida e a conta tem acesso ao Firestore?`
+    )
   }
   return corpo.access_token
 }
@@ -61,7 +76,9 @@ export async function obterTokenDeAcesso(chave) {
 function exigirChave(chave) {
   for (const campo of ['client_email', 'private_key', 'token_uri']) {
     if (typeof chave?.[campo] !== 'string') {
-      throw new Error(`Chave de conta de serviço sem "${campo}". Esperado o JSON baixado em Configurações do projeto > Contas de serviço.`)
+      throw new Error(
+        `Chave de conta de serviço sem "${campo}". Esperado o JSON baixado em Configurações do projeto > Contas de serviço.`
+      )
     }
   }
 }
@@ -72,9 +89,10 @@ function exigirChave(chave) {
  * @example await new ClienteFirestoreRest('meu-projeto', token).gravar([{ caminho: 'membros/ana@x.com', campos: { nome: 'Ana' } }])
  */
 export class ClienteFirestoreRest {
+  /** `token` é nulo só contra o emulador, que aceita `Bearer owner` como acesso de owner. */
   constructor(projeto, token) {
     this.projeto = projeto
-    this.token = token
+    this.token = token ?? 'owner'
   }
 
   /** Nome absoluto do recurso, como a API exige em `name`. */
@@ -119,25 +137,29 @@ export class ClienteFirestoreRest {
   }
 
   async buscar(caminho) {
-    const resposta = await fetch(`${RAIZ}/${this.nomeAbsoluto(caminho)}`, {
+    const resposta = await fetch(`${raizDaApi()}/${this.nomeAbsoluto(caminho)}`, {
       headers: { Authorization: `Bearer ${this.token}` }
     })
     const resultado = await resposta.json()
     if (!resposta.ok) {
-      throw new Error(`Falha ao ler ${caminho} no projeto ${this.projeto}: HTTP ${resposta.status} ${JSON.stringify(resultado)}. Esperado 200.`)
+      throw new Error(
+        `Falha ao ler ${caminho} no projeto ${this.projeto}: HTTP ${resposta.status} ${JSON.stringify(resultado)}. Esperado 200.`
+      )
     }
     return resultado
   }
 
   async chamar(operacao, corpo) {
-    const resposta = await fetch(`${RAIZ}/projects/${this.projeto}/databases/(default)/${operacao}`, {
+    const resposta = await fetch(`${raizDaApi()}/projects/${this.projeto}/databases/(default)/${operacao}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${this.token}` },
       body: JSON.stringify(corpo)
     })
     const resultado = await resposta.json()
     if (!resposta.ok) {
-      throw new Error(`Falha em ${operacao} no projeto ${this.projeto}: HTTP ${resposta.status} ${JSON.stringify(resultado)}. Esperado 200.`)
+      throw new Error(
+        `Falha em ${operacao} no projeto ${this.projeto}: HTTP ${resposta.status} ${JSON.stringify(resultado)}. Esperado 200.`
+      )
     }
     return resultado
   }

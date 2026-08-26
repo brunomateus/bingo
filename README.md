@@ -37,6 +37,33 @@ npm run criar-organizador "Ana Silva" ana@exemplo.com
 Depois entre com a conta Google desse e-mail — no emulador, o popup de login deixa
 inventar a conta na hora. Os dados somem quando o emulador para; refaça o comando.
 
+### Prévia com o Histórico real, sem tocar no projeto de produção
+
+Para ver as telas com dados de verdade (Pendências espalhadas por várias Edições,
+por exemplo), carregue o Histórico no emulador — a mesma importação de produção,
+só que apontada para o host local, sem chave de conta de serviço:
+
+```bash
+npm run emulador                                     # terminal 1
+FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 \
+  npm run importar-historico -- --projeto demo-bingo --confirmar   # terminal 2
+npm run dev                                          # terminal 3
+```
+
+Sem `--confirmar` o script só simula, como no projeto real. Depois entre com a
+conta Google de um dos Membros importados (o popup do emulador deixa inventar a
+conta na hora) para ver o app do ponto de vista dele. Nada disso chega ao
+Firebase de produção: `.env.development` e `FIRESTORE_EMULATOR_HOST` mantêm tudo
+no emulador, que esquece os dados quando para.
+
+A importação cria todo mundo como Membro comum — papel é decisão do app. Para
+abrir uma Edição você precisa de um Organizador; `criar-organizador` promove
+quem já está cadastrado, preservando o `uid` de quem já entrou:
+
+```bash
+npm run criar-organizador "Bruno Mateus" brunomateus@gmail.com
+```
+
 No projeto real o bootstrap é manual pelo console do Firebase: coleção `membros`,
 id do documento = e-mail em minúsculas, campos `nome`, `email`, `papel: organizador`,
 `status: ativo`, `uid: null`.

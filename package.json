@@ -12,6 +12,8 @@
     "estilos:build": "node scripts/build-bjcp-styles.mjs",
     "emulador": "firebase emulators:start --project demo-bingo",
     "test:unit": "vitest run",
+    "formatar": "prettier --write .",
+    "formatar:conferir": "prettier --check .",
     "criar-organizador": "node scripts/criar-organizador.mjs",
     "importar-historico": "node scripts/importar-historico.mjs",
     "test:integracao": "firebase emulators:exec --only firestore --project demo-bingo-testes \"vitest run --config vitest.integracao.config.ts\""
@@ -27,6 +29,7 @@
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/tsconfig": "^0.9.1",
     "firebase-tools": "^14.27.0",
+    "prettier": "^3.9.6",
     "typescript": "~6.0.2",
     "vite": "^8.0.12",
     "vitest": "^3.2.7",
